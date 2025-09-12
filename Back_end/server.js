@@ -27,6 +27,7 @@ app.use("/api/students", studentRoutes);
 // Option 3: Import from Google Sheets CSV export (uncomment and update path)
 // importGoogleSheets("./data/google_sheets_export.csv");
 importGoogleSheets("./data/July_Rebate_Corrected.csv");
+importGoogleSheets("./data/August_Rebate.csv");
 
 // Option 4: Import from CSV file (uncomment and update path)
 // importCSV("./data/your_data.csv");
