@@ -21,7 +21,7 @@ async function showData() {
     let tableRows = '';
 
     // Sort months chronologically
-    const monthOrder = ['jun2024', 'jul2024', 'aug2024', 'sep2024', 'oct2024', 'nov2024', 'dec2024'];
+    const monthOrder = ['jun2024', 'jul2024', 'aug2024', 'sep2024', 'oct2024', 'nov2024', 'dec2024', 'jan2025', 'feb2025', 'mar2025', 'apr2025', 'may2025'];
     const sortedMonths = monthOrder.filter(month => data.records[month]);
 
     for (const month of sortedMonths) {

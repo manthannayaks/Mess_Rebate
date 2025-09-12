@@ -266,9 +266,138 @@ const studentData = {
     "name": "MANTHAN NAYAK",
     "records": {
       "jul2024": { "present": 22, "absent": 8, "rebate": 1120 },
-      "aug2024": { "present": 8, "absent": 23, "rebate": 3220 }
+      "aug2024": { "present": 8, "absent": 23, "rebate": 3220 },
+      "apr2025": { "present": 30, "absent": 0, "rebate": 0 }
     },
     "totalRebate": 4340
+  },
+  "B24EDC013": {
+    "rollNo": "B24EDC013",
+    "name": "YASH SONI",
+    "records": {
+      "apr2025": { "present": 28, "absent": 2, "rebate": 280 }
+    },
+    "totalRebate": 280
+  },
+  "B24EDM014": {
+    "rollNo": "B24EDM014",
+    "name": "VIKASH JAISWAL",
+    "records": {
+      "apr2025": { "present": 29, "absent": 1, "rebate": 140 }
+    },
+    "totalRebate": 140
+  },
+  "B24CI1020": {
+    "rollNo": "B24CI1020",
+    "name": "KARTIK JAIN",
+    "records": {
+      "apr2025": { "present": 29, "absent": 1, "rebate": 140 }
+    },
+    "totalRebate": 140
+  },
+  "B24CM1051": {
+    "rollNo": "B24CM1051",
+    "name": "Randip Randhawa",
+    "records": {
+      "apr2025": { "present": 29, "absent": 1, "rebate": 140 }
+    },
+    "totalRebate": 140
+  },
+  "B24MT1024": {
+    "rollNo": "B24MT1024",
+    "name": "NIKHIL KUMAR SHARMA",
+    "records": {
+      "apr2025": { "present": 29, "absent": 1, "rebate": 140 }
+    },
+    "totalRebate": 140
+  },
+  "B24CI1057": {
+    "rollNo": "B24CI1057",
+    "name": "VIVEK SHEKHAWAT",
+    "records": {
+      "apr2025": { "present": 29, "absent": 1, "rebate": 140 }
+    },
+    "totalRebate": 140
+  },
+  "B24CM1046": {
+    "rollNo": "B24CM1046",
+    "name": "MUDAVATH KOTESH",
+    "records": {
+      "apr2025": { "present": 29, "absent": 1, "rebate": 140 }
+    },
+    "totalRebate": 140
+  },
+  "B24PH1016": {
+    "rollNo": "B24PH1016",
+    "name": "MANASVI GEHLOT",
+    "records": {
+      "apr2025": { "present": 29, "absent": 1, "rebate": 140 }
+    },
+    "totalRebate": 140
+  },
+  "B24MT1011": {
+    "rollNo": "B24MT1011",
+    "name": "HARSHIT",
+    "records": {
+      "apr2025": { "present": 29, "absent": 1, "rebate": 140 }
+    },
+    "totalRebate": 140
+  },
+  "B24CI1016": {
+    "rollNo": "B24CI1016",
+    "name": "HIMANSHU JAIN",
+    "records": {
+      "apr2025": { "present": 29, "absent": 1, "rebate": 140 }
+    },
+    "totalRebate": 140
+  },
+  "B24ME1063": {
+    "rollNo": "B24ME1063",
+    "name": "SAHILPREET SINGH",
+    "records": {
+      "apr2025": { "present": 29, "absent": 1, "rebate": 140 }
+    },
+    "totalRebate": 140
+  },
+  "B24CS1046": {
+    "rollNo": "B24CS1046",
+    "name": "MYLARI SAI NITHISH",
+    "records": {
+      "apr2025": { "present": 29, "absent": 1, "rebate": 140 }
+    },
+    "totalRebate": 140
+  },
+  "B24ME1011": {
+    "rollNo": "B24ME1011",
+    "name": "ANURAAG GUDIPATI",
+    "records": {
+      "apr2025": { "present": 29, "absent": 1, "rebate": 140 }
+    },
+    "totalRebate": 140
+  },
+  "B24EE1046": {
+    "rollNo": "B24EE1046",
+    "name": "MUKKERA ABHISHEK",
+    "records": {
+      "apr2025": { "present": 29, "absent": 1, "rebate": 140 }
+    },
+    "totalRebate": 140
+  },
+  "B24ME1015": {
+    "rollNo": "B24ME1015",
+    "name": "ARYAN CHOUHAN",
+    "records": {
+      "apr2025": { "present": 29, "absent": 1, "rebate": 140 }
+    },
+    "totalRebate": 140
+  },
+  "B24CI1015": {
+    "rollNo": "B24CI1015",
+    "name": "HASWANTH RAMA SAI UDATHA",
+    "records": {
+      "apr2025": { "present": 29, "absent": 1, "rebate": 140 }
+    },
+    "totalRebate": 140
   }
 };
 
