@@ -265,9 +265,10 @@ const studentData = {
     "rollNo": "B24CM1044",
     "name": "MANTHAN NAYAK",
     "records": {
+      "jul2024": { "present": 22, "absent": 8, "rebate": 1120 },
       "aug2024": { "present": 8, "absent": 23, "rebate": 3220 }
     },
-    "totalRebate": 3220
+    "totalRebate": 4340
   }
 };
 
