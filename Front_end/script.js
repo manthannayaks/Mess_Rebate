@@ -10,8 +10,11 @@ async function showData() {
   }
 
   try {
-    // Use relative path for Vercel deployment
-    const response = await fetch(`/api/students/${roll}`);
+    // Use local server URL for development
+    console.log(`Fetching data for roll: ${roll}`);
+    const response = await fetch(`http://localhost:3001/api/students/${roll}`);
+    console.log(`Response status: ${response.status}`);
+    
     if (!response.ok) {
       resultDiv.innerHTML = `<p style="color:red;">No data found for roll number: ${roll}</p>`;
       return;
@@ -62,6 +65,7 @@ async function showData() {
         <p>Rebate rate: ₹${perDayRate} per absent day</p>
       </div>`;
   } catch (err) {
+    console.error('Error:', err);
     resultDiv.innerHTML = `<p style="color:red;">Error fetching data: ${err.message}</p>`;
   }
 }

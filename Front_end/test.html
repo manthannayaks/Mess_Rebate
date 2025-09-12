@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test - Mess Rebate Tracker</title>
+</head>
+<body>
+  <h1>Test Page</h1>
+  <button onclick="testAPI()">Test API</button>
+  <div id="result"></div>
+
+  <script>
+    async function testAPI() {
+      const resultDiv = document.getElementById('result');
+      
+      try {
+        console.log('Testing API...');
+        const response = await fetch('http://localhost:3001/api/students/B24CM1052');
+        console.log('Response:', response);
+        
+        if (response.ok) {
+          const data = await response.json();
+          console.log('Data:', data);
+          resultDiv.innerHTML = `<p style="color:green;">Success! Student: ${data.name}, Rebate: ₹${data.totalRebate}</p>`;
+        } else {
+          resultDiv.innerHTML = `<p style="color:red;">Error: ${response.status} ${response.statusText}</p>`;
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        resultDiv.innerHTML = `<p style="color:red;">Error: ${error.message}</p>`;
+      }
+    }
+  </script>
+</body>
+</html>
