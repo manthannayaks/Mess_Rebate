@@ -1,13 +1,20 @@
 {
-  "name": "mess_rebate_tracker",
+  "name": "mess-rebate-tracker",
   "version": "1.0.0",
-  "private": true,
+  "description": "Mess Rebate Tracker for IIT Jodhpur",
+  "main": "Back_end/server.js",
   "scripts": {
-    "start-backend": "cd Back_end && npm run dev",
-    "start-frontend": "cd Front_end && npm start",
-    "start-all": "concurrently \"npm run start-backend\" \"npm run start-frontend\""
+    "dev": "concurrently \"cd Back_end && npm run dev\" \"cd Front_end && npm start\"",
+    "build": "cd Front_end && npm run build",
+    "start": "cd Back_end && npm start"
+  },
+  "dependencies": {
+    "mongodb": "^6.0.0"
   },
   "devDependencies": {
-    "concurrently": "^9.0.1"
+    "concurrently": "^8.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }
