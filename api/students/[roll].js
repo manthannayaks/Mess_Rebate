@@ -55,17 +55,30 @@ export default async function handler(req, res) {
       return res.status(404).json({ message: 'Student not found' });
     }
 
-    // Convert Map to Object for easier frontend handling
+    // Handle records - could be Map or Object
     const recordsObj = {};
     let totalRebate = 0;
     
-    for (const [month, data] of student.records.entries()) {
-      recordsObj[month] = {
-        present: data.present,
-        absent: data.absent,
-        rebate: data.rebate
-      };
-      totalRebate += data.rebate || 0;
+    if (student.records instanceof Map) {
+      // If records is a Map
+      for (const [month, data] of student.records.entries()) {
+        recordsObj[month] = {
+          present: data.present,
+          absent: data.absent,
+          rebate: data.rebate
+        };
+        totalRebate += data.rebate || 0;
+      }
+    } else if (student.records && typeof student.records === 'object') {
+      // If records is an Object
+      for (const [month, data] of Object.entries(student.records)) {
+        recordsObj[month] = {
+          present: data.present,
+          absent: data.absent,
+          rebate: data.rebate
+        };
+        totalRebate += data.rebate || 0;
+      }
     }
 
     res.status(200).json({

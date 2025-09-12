@@ -10,9 +10,9 @@ async function showData() {
   }
 
   try {
-    // Use local server URL for development
+    // Use relative API path for Vercel deployment
     console.log(`Fetching data for roll: ${roll}`);
-    const response = await fetch(`http://localhost:3001/api/students/${roll}`);
+    const response = await fetch(`/api/students/${roll}`);
     console.log(`Response status: ${response.status}`);
     
     if (!response.ok) {

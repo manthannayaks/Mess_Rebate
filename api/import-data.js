@@ -6,7 +6,7 @@ const path = require('path');
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/messRebateDB';
 const MONGODB_DB = 'messRebateDB';
 
-// Sample data
+// Sample data - using Object instead of Map for MongoDB compatibility
 const sampleData = [
   {
     "rollNo": "B24CS1056",

@@ -2,11 +2,12 @@
   "name": "mess-rebate-tracker",
   "version": "1.0.0",
   "description": "Mess Rebate Tracker for IIT Jodhpur",
-  "main": "Back_end/server.js",
+  "main": "api/students/[roll].js",
   "scripts": {
     "dev": "concurrently \"cd Back_end && npm run dev\" \"cd Front_end && npm start\"",
     "build": "cd Front_end && npm run build",
-    "start": "cd Back_end && npm start"
+    "start": "cd Back_end && npm start",
+    "vercel-build": "echo 'Vercel build completed'"
   },
   "dependencies": {
     "mongodb": "^6.0.0"
