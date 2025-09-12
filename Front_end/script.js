@@ -11,7 +11,7 @@ async function showData() {
 
   try {
     // Use relative path for Vercel deployment
-    const response = await fetch(`/api/students/${roll}`);
+    const response = await fetch(`/api/students?roll=${roll}`);
     if (!response.ok) {
       resultDiv.innerHTML = `<p style="color:red;">No data found for roll number: ${roll}</p>`;
       return;

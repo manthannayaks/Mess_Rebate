@@ -19,8 +19,5 @@
       "src": "/(.*)",
       "dest": "Front_end/$1"
     }
-  ],
-  "env": {
-    "NODE_ENV": "production"
-  }
+  ]
 }
