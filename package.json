@@ -8,9 +8,7 @@
     "build": "cd Front_end && npm run build",
     "start": "cd Back_end && npm start"
   },
-  "dependencies": {
-    "mongodb": "^6.0.0"
-  },
+  "dependencies": {},
   "devDependencies": {
     "concurrently": "^8.0.0"
   },
