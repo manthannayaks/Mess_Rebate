@@ -6,7 +6,7 @@ const path = require('path');
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/messRebateDB';
 const MONGODB_DB = 'messRebateDB';
 
-// Actual data from July_Rebate_Corrected.csv - using Object instead of Map for MongoDB compatibility
+// Sample data
 const sampleData = [
   {
     "rollNo": "B24CS1056",
@@ -76,139 +76,6 @@ const sampleData = [
     "name": "SAYYED HAMZA ALI",
     "records": {
       "jul2024": { "present": 23, "absent": 7, "rebate": 980 }
-    }
-  },
-  {
-    "rollNo": "B24MT1008",
-    "name": "BHUKYA NARENDER",
-    "records": {
-      "jul2024": { "present": 28, "absent": 2, "rebate": 280 }
-    }
-  },
-  {
-    "rollNo": "B24CS1016",
-    "name": "ARYAN ASHOK JAIN",
-    "records": {
-      "jul2024": { "present": 28, "absent": 2, "rebate": 280 }
-    }
-  },
-  {
-    "rollNo": "B24PH1018",
-    "name": "NITISH KUMAR DAS",
-    "records": {
-      "jul2024": { "present": 24, "absent": 6, "rebate": 840 }
-    }
-  },
-  {
-    "rollNo": "B24EE1007",
-    "name": "ARSH GOYAL",
-    "records": {
-      "jul2024": { "present": 28, "absent": 2, "rebate": 280 }
-    }
-  },
-  {
-    "rollNo": "B24EE1060",
-    "name": "RAGHAV SRINIVASAN",
-    "records": {
-      "jul2024": { "present": 26, "absent": 4, "rebate": 560 }
-    }
-  },
-  {
-    "rollNo": "B24CM1007",
-    "name": "AMISH RAI",
-    "records": {
-      "jul2024": { "present": 28, "absent": 2, "rebate": 280 }
-    }
-  },
-  {
-    "rollNo": "B24CM1050",
-    "name": "PAARAS KATARIA",
-    "records": {
-      "jul2024": { "present": 28, "absent": 2, "rebate": 280 }
-    }
-  },
-  {
-    "rollNo": "B24ME1066",
-    "name": "SAIGIRISH S",
-    "records": {
-      "jul2024": { "present": 26, "absent": 4, "rebate": 560 }
-    }
-  },
-  {
-    "rollNo": "B24ME1019",
-    "name": "CHHATRALA DARSH NAVNEETBHAI",
-    "records": {
-      "jul2024": { "present": 28, "absent": 2, "rebate": 280 }
-    }
-  },
-  {
-    "rollNo": "B24CI1030",
-    "name": "MARKAD TEJAS VILAS",
-    "records": {
-      "jul2024": { "present": 28, "absent": 2, "rebate": 280 }
-    }
-  },
-  {
-    "rollNo": "B24CH1046",
-    "name": "TANISHQ VARSHNEY",
-    "records": {
-      "jul2024": { "present": 28, "absent": 2, "rebate": 280 }
-    }
-  },
-  {
-    "rollNo": "B24BB1012",
-    "name": "GYAN VARDHAN CHAUHAN",
-    "records": {
-      "jul2024": { "present": 24, "absent": 6, "rebate": 840 }
-    }
-  },
-  {
-    "rollNo": "B24MT1020",
-    "name": "MADAS SHIVA SHANKAR",
-    "records": {
-      "jul2024": { "present": 28, "absent": 2, "rebate": 280 }
-    }
-  },
-  {
-    "rollNo": "B24CI1037",
-    "name": "NITESH KUMAR",
-    "records": {
-      "jul2024": { "present": 26, "absent": 4, "rebate": 560 }
-    }
-  },
-  {
-    "rollNo": "B24CS1058",
-    "name": "PRIYAM MAHESHBHAI PATEL",
-    "records": {
-      "jul2024": { "present": 27, "absent": 3, "rebate": 420 }
-    }
-  },
-  {
-    "rollNo": "B24PH1022",
-    "name": "SALLA SAI CHAITHANYA",
-    "records": {
-      "jul2024": { "present": 29, "absent": 1, "rebate": 140 }
-    }
-  },
-  {
-    "rollNo": "B24EE1026",
-    "name": "HRUJUL MENDHE",
-    "records": {
-      "jul2024": { "present": 26, "absent": 4, "rebate": 560 }
-    }
-  },
-  {
-    "rollNo": "B24EE1077",
-    "name": "SUPARN AGRAWAL",
-    "records": {
-      "jul2024": { "present": 28, "absent": 2, "rebate": 280 }
-    }
-  },
-  {
-    "rollNo": "B24BB1029",
-    "name": "PRIYANSHU PANDEY",
-    "records": {
-      "jul2024": { "present": 26, "absent": 4, "rebate": 560 }
     }
   }
 ];
