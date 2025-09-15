@@ -7,7 +7,7 @@ const { importSampleData, importExcel, importCSV, importGoogleSheets } = require
 const app = express();
 
 // Connect to MongoDB
-connectDB();
+// connectDB();
 
 // Middleware
 app.use(cors());
@@ -26,10 +26,10 @@ app.use("/api/students", studentRoutes);
 
 // Option 3: Import from Google Sheets CSV export (uncomment and update path)
 // importGoogleSheets("./data/google_sheets_export.csv");
-importGoogleSheets("./data/July_Rebate_Corrected.csv");
+// importGoogleSheets("./data/August_2025.csv");
 
 // Option 4: Import from CSV file (uncomment and update path)
-// importCSV("./data/your_data.csv");
+importCSV("./data/August_2025.csv");
 
 const PORT = 3001;
 app.listen(PORT, () => {
