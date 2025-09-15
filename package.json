@@ -8,11 +8,24 @@
     "build": "cd Front_end && npm run build",
     "start": "cd Back_end && npm start"
   },
-  "dependencies": {},
   "devDependencies": {
     "concurrently": "^8.0.0"
   },
   "engines": {
     "node": ">=18.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/manthannayaks/Mess_Rebate.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/manthannayaks/Mess_Rebate/issues"
+  },
+  "homepage": "https://github.com/manthannayaks/Mess_Rebate#readme",
+  "dependencies": {
+    "express": "^5.1.0"
   }
 }

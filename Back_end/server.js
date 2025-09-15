@@ -29,7 +29,7 @@ app.use("/api/students", studentRoutes);
 // importGoogleSheets("./data/August_2025.csv");
 
 // Option 4: Import from CSV file (uncomment and update path)
-importCSV("./data/August_2025.csv");
+importCSV("./data/August_2025_Mess.csv");
 
 const PORT = 3001;
 app.listen(PORT, () => {
