@@ -980,3 +980,98 @@ tbody tr:nth-child(even) {
   }
 }
 
+/* Dark Mode Navbar */
+:root[data-theme='dark'] .site-header {
+  background: rgba(10, 15, 28, 0.96) !important; /* dark navy */
+  color: var(--text) !important;
+}
+
+:root[data-theme='dark'] .site-nav a {
+  color: var(--text-muted) !important;
+}
+
+:root[data-theme='dark'] .site-nav a.is-active,
+:root[data-theme='dark'] .site-nav a:hover {
+  background: rgba(90, 160, 255, 0.25) !important;
+  color: var(--brand) !important;
+}
+
+/* Profile popup always light */
+.profile-panel__body {
+  background: #ffffff !important;
+  color: #111827 !important;
+}
+
+/* Text always readable */
+.profile-panel__body * {
+  color: #111827 !important;
+}
+
+/* Inputs readable */
+.profile-panel__body input {
+  background: #ffffff !important;
+  color: #111827 !important;
+  border: 1px solid #d1d5db !important;
+}
+
+.profile-panel__body input::placeholder {
+  color: #6b7280 !important;
+}
+
+/* Fix Mess Menu <select> in Dark Mode */
+:root[data-theme='dark'] select,
+:root[data-theme='dark'] .menu-select select {
+  background: #1e293b !important;
+  color: #f8fafc !important;
+  border: 1px solid rgba(255,255,255,0.25) !important;
+}
+
+/* Fix Profile button visibility in dark mode */
+:root[data-theme='dark'] .profile-btn {
+  background: #1e293b !important;
+  color: #f8fafc !important;
+  border-color: rgba(255,255,255,0.25) !important;
+}
+
+:root[data-theme='dark'] .profile-btn .profile-label {
+  color: #f8fafc !important;
+}
+
+:root[data-theme='dark'] .profile-btn .profile-initial {
+  background: var(--brand) !important; 
+  color: #fff !important;
+}
+
+/* Fix Veg/Non-veg buttons in Dark Mode */
+:root[data-theme='dark'] .menu-tabs button {
+  background: #1e293b !important;
+  color: #f1f5f9 !important;
+  border-color: rgba(255,255,255,0.15) !important;
+}
+
+:root[data-theme='dark'] .menu-tabs button.active {
+  background: var(--brand) !important;
+  color: #fff !important;
+  border-color: var(--brand) !important;
+}
+
+/* Fix Roll Number input in Rebate page (Dark Mode) */
+:root[data-theme='dark'] .input-row input {
+  background: #0f172a !important;    /* deep navy */
+  color: #f8fafc !important;         /* white text */
+  border: 1px solid rgba(255,255,255,0.2) !important;
+}
+
+:root[data-theme='dark'] .input-row input::placeholder {
+  color: #94a3b8 !important;     /* soft grey */
+}
+/* Make QR preview box always light inside profile */
+.profile-panel__body .profile-qr-preview__content {
+  background: #f8fafc !important;     /* soft white */
+  border: 1px solid #d1d5db !important;
+}
+
+.profile-panel__body .profile-qr-preview__content p,
+.profile-panel__body .profile-qr-preview__content .meta {
+  color: #111827 !important;          /* readable dark text */
+}
