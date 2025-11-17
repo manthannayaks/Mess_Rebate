@@ -16,14 +16,15 @@
         <span>Campus Mess Companion</span>
       </a>
       <div class="header-actions">
-        <div class="theme-toggle">
-          <span>Theme</span>
-          <select data-theme-select aria-label="Theme">
-            <option value="auto">Auto</option>
-            <option value="light">Light</option>
-            <option value="dark">Dark</option>
-          </select>
+        <div class="theme-toggle" data-theme-toggle role="group" aria-label="Theme">
+          <button type="button" data-theme-option="auto">Auto</button>
+          <button type="button" data-theme-option="light">Light</button>
+          <button type="button" data-theme-option="dark">Dark</button>
         </div>
+        <button class="profile-btn" type="button" data-profile-toggle>
+          <span class="profile-initial" data-profile-initial>☺</span>
+          <span class="profile-label" data-profile-label>Profile</span>
+        </button>
         <button class="nav-toggle" type="button" data-nav-toggle aria-label="Toggle navigation">
           ☰
         </button>
@@ -71,6 +72,41 @@
         <code>calendar-events.json</code> then rebuild to refresh this page.
       </p>
     </footer>
+
+    <div class="profile-panel hidden" data-profile-panel>
+      <div class="profile-panel__scrim" data-profile-close></div>
+      <div class="profile-panel__body" role="dialog" aria-modal="true">
+        <button class="profile-close" type="button" data-profile-close aria-label="Close profile">
+          ×
+        </button>
+        <h2>Student profile</h2>
+        <form data-profile-form>
+          <label class="stack">
+            <span>Full name</span>
+            <input type="text" name="name" placeholder="e.g. Priya Sharma" required />
+          </label>
+          <label class="stack">
+            <span>Roll number</span>
+            <input type="text" name="roll" placeholder="e.g. B25EE1001" required />
+          </label>
+          <label class="stack">
+            <span>Hostel / Block</span>
+            <input type="text" name="hostel" placeholder="e.g. B1 / Room 217" />
+          </label>
+          <label class="stack">
+            <span>Phone</span>
+            <input type="tel" name="phone" placeholder="e.g. 9876543210" />
+          </label>
+          <button class="btn primary" type="submit">Save profile</button>
+        </form>
+        <section class="profile-summary">
+          <h3>Your QR pass</h3>
+          <div class="profile-qr-preview" data-profile-qr-preview>
+            <p class="meta">Upload a QR on the home page to see it here.</p>
+          </div>
+        </section>
+      </div>
+    </div>
   </body>
 </html>
 
