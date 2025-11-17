@@ -30,7 +30,6 @@
     statStudents: document.querySelector('[data-stat-students]'),
     statRate: document.querySelector('[data-stat-rate]'),
     statMonths: document.querySelector('[data-stat-months]'),
-    recentCard: document.querySelector('[data-recent-card]'),
     recentList: document.querySelector('[data-recent-list]'),
     recentClear: document.querySelector('[data-recent-clear]'),
   };
@@ -214,5 +213,6 @@
       )
       .join('');
   }
+
 })();
 
