@@ -30,13 +30,21 @@
     statStudents: document.querySelector('[data-stat-students]'),
     statRate: document.querySelector('[data-stat-rate]'),
     statMonths: document.querySelector('[data-stat-months]'),
-    recentCard: document.querySelector('[data-recent-card]'),
     recentList: document.querySelector('[data-recent-list]'),
     recentClear: document.querySelector('[data-recent-clear]'),
+    qrInput: document.querySelector('[data-qr-input]'),
+    qrPreviewWrapper: document.querySelector('[data-qr-preview-wrapper]'),
+    qrPreviewImage: document.querySelector('[data-qr-preview]'),
+    qrText: document.querySelector('[data-qr-text]'),
+    qrManualWrapper: document.querySelector('[data-qr-manual-wrapper]'),
+    qrManualInput: document.querySelector('[data-qr-manual]'),
   };
 
   const recentStorageKey = 'mess-rebate-recent';
+  const qrStorageKey = 'mess-qr-passes';
   let recentLookups = loadRecent();
+  let qrVault = loadQrVault();
+  let activeRoll = null;
 
   nodes.rateValue.textContent = rate ? formatter.format(rate) + '/day' : '—';
   nodes.stats.textContent = `${students.size.toLocaleString('en-IN')} students • ${
@@ -90,6 +98,45 @@
     nodes.input.focus();
   });
 
+  nodes.qrInput?.addEventListener('change', async (event) => {
+    if (!activeRoll) {
+      nodes.qrInput.value = '';
+      alert('Select a student before uploading a QR pass.');
+      return;
+    }
+    const file = event.target.files?.[0];
+    if (!file) return;
+    const dataUrl = await readFileAsDataURL(file);
+    if (!dataUrl) return;
+    showQrPreview(dataUrl);
+    const decoded = await decodeQrImage(dataUrl);
+    if (decoded) {
+      nodes.qrText && (nodes.qrText.textContent = decoded);
+      nodes.qrManualWrapper?.classList.add('hidden');
+      nodes.qrManualInput && (nodes.qrManualInput.value = '');
+      saveQrEntry(activeRoll, dataUrl, decoded);
+    } else {
+      if (nodes.qrText) {
+        nodes.qrText.textContent =
+          'Could not decode automatically. Paste the QR text below.';
+      }
+      nodes.qrManualWrapper?.classList.remove('hidden');
+      nodes.qrManualInput && (nodes.qrManualInput.value = '');
+      saveQrEntry(activeRoll, dataUrl, '');
+    }
+  });
+
+  nodes.qrManualInput?.addEventListener('input', () => {
+    if (!activeRoll) return;
+    if (!qrVault[activeRoll]) qrVault[activeRoll] = {};
+    qrVault[activeRoll].text = nodes.qrManualInput.value.trim();
+    if (nodes.qrText) {
+      nodes.qrText.textContent =
+        nodes.qrManualInput.value.trim() || 'Text stored locally.';
+    }
+    persistQrVault();
+  });
+
   showEmpty('Type a roll number to load the student’s mess rebate summary.');
 
   function search(roll) {
@@ -109,6 +156,7 @@
   function renderStudent(student) {
     nodes.resultCard.classList.remove('hidden');
     nodes.emptyCard.classList.add('hidden');
+    activeRoll = student.rollNo;
 
     nodes.name.textContent = student.name || 'Unknown student';
     nodes.hostel.textContent = student.hostel || '—';
@@ -134,12 +182,23 @@
       .join('');
 
     rememberLookup(student);
+    loadQrEntry(student.rollNo);
   }
 
   function showEmpty(message) {
     nodes.resultCard.classList.add('hidden');
     nodes.emptyCard.classList.remove('hidden');
     nodes.emptyCard.textContent = message;
+    activeRoll = null;
+    if (nodes.qrInput) {
+      nodes.qrInput.value = '';
+      nodes.qrInput.disabled = true;
+    }
+    if (nodes.qrPreviewWrapper) nodes.qrPreviewWrapper.classList.add('hidden');
+    if (nodes.qrManualWrapper) nodes.qrManualWrapper.classList.add('hidden');
+    if (nodes.qrText) {
+      nodes.qrText.textContent = 'Upload a QR image to decode it.';
+    }
   }
 
   function renderMonthBadges() {
@@ -213,6 +272,104 @@
         </li>`
       )
       .join('');
+  }
+
+  function showQrPreview(dataUrl) {
+    if (!nodes.qrPreviewWrapper || !nodes.qrPreviewImage) return;
+    nodes.qrPreviewWrapper.classList.remove('hidden');
+    nodes.qrPreviewImage.src = dataUrl;
+  }
+
+  function loadQrEntry(roll) {
+    if (!nodes.qrInput) return;
+    nodes.qrInput.disabled = false;
+    const entry = qrVault[roll];
+    if (!entry) {
+      if (nodes.qrPreviewWrapper) nodes.qrPreviewWrapper.classList.add('hidden');
+      if (nodes.qrManualWrapper) nodes.qrManualWrapper.classList.add('hidden');
+      if (nodes.qrText) {
+        nodes.qrText.textContent = 'Upload a QR image to decode it.';
+      }
+      return;
+    }
+    if (entry.image) {
+      showQrPreview(entry.image);
+    }
+    if (entry.text) {
+      nodes.qrText && (nodes.qrText.textContent = entry.text);
+      nodes.qrManualWrapper?.classList.add('hidden');
+    } else {
+      if (nodes.qrText) {
+        nodes.qrText.textContent =
+          'No text stored yet. Paste it below if decoding failed.';
+      }
+      nodes.qrManualWrapper?.classList.remove('hidden');
+    }
+    if (nodes.qrManualInput) {
+      nodes.qrManualInput.value = entry.text || '';
+    }
+  }
+
+  function saveQrEntry(roll, image, text) {
+    qrVault[roll] = { image, text };
+    persistQrVault();
+  }
+
+  function persistQrVault() {
+    try {
+      localStorage.setItem(qrStorageKey, JSON.stringify(qrVault));
+    } catch {
+      /* ignore */
+    }
+  }
+
+  function loadQrVault() {
+    try {
+      const stored = localStorage.getItem(qrStorageKey);
+      return stored ? JSON.parse(stored) : {};
+    } catch {
+      return {};
+    }
+  }
+
+  async function readFileAsDataURL(file) {
+    return await new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = () => resolve(null);
+      reader.readAsDataURL(file);
+    });
+  }
+
+  async function decodeQrImage(dataUrl) {
+    if (!('BarcodeDetector' in window)) {
+      return null;
+    }
+    try {
+      const img = await loadImage(dataUrl);
+      const canvas = document.createElement('canvas');
+      canvas.width = img.width;
+      canvas.height = img.height;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0);
+      const detector = new BarcodeDetector({ formats: ['qr_code'] });
+      const codes = await detector.detect(canvas);
+      if (codes.length && (codes[0].rawValue || codes[0].data)) {
+        return codes[0].rawValue || codes[0].data;
+      }
+    } catch {
+      return null;
+    }
+    return null;
+  }
+
+  function loadImage(src) {
+    return new Promise((resolve, reject) => {
+      const image = new Image();
+      image.onload = () => resolve(image);
+      image.onerror = reject;
+      image.src = src;
+    });
   }
 })();
 

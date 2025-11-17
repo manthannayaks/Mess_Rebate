@@ -7,6 +7,13 @@ Clean, institute-neutral dashboard that works entirely offline. Drop your latest
 - **Mess Menu:** Stylish day-by-day layout for both vegetarian and non-vegetarian plans.
 - **Academic Calendar:** Calendar-grid view of holidays/events plus an “Open Full Calendar” button for the official PDF.
 
+## Experience highlights
+
+- **Theme toggle (Auto / Light / Dark):** Present on every page so the UI can follow the OS preference or override it instantly.
+- **Mess feedback hub:** Students can log 5-star ratings + comments for each meal, and staff can export all offline feedback as CSV.
+- **Meal reminder switches:** Browser notifications (breakfast, lunch, snacks, dinner) keep everyone on schedule even without internet—just leave the tab open.
+- **QR pass locker:** Each student profile stores a QR image + decoded text locally so entry scans stay handy even when the network drops.
+
 ## Project structure
 
 ```

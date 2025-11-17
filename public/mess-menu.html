@@ -15,9 +15,19 @@
         <span aria-hidden="true">🍽️</span>
         <span>Campus Mess Companion</span>
       </a>
-      <button class="nav-toggle" type="button" data-nav-toggle aria-label="Toggle navigation">
-        ☰
-      </button>
+      <div class="header-actions">
+        <div class="theme-toggle">
+          <span>Theme</span>
+          <select data-theme-select aria-label="Theme">
+            <option value="auto">Auto</option>
+            <option value="light">Light</option>
+            <option value="dark">Dark</option>
+          </select>
+        </div>
+        <button class="nav-toggle" type="button" data-nav-toggle aria-label="Toggle navigation">
+          ☰
+        </button>
+      </div>
       <nav class="site-nav">
         <a href="index.html">Home</a>
         <a href="mess-menu.html" class="is-active">Mess Menu</a>
@@ -69,6 +79,88 @@
         <h2 data-menu-title>—</h2>
         <div class="menu-grid" data-menu-grid></div>
         <p class="meta-label" data-menu-updated></p>
+      </section>
+
+      <section class="card rating-card" data-rating-card>
+        <header>
+          <div>
+            <p class="eyebrow">Meal feedback</p>
+            <h2>Rate today’s dishes</h2>
+            <p class="meta">
+              Ratings stay on this device so staff can quickly review what students like.
+            </p>
+          </div>
+          <button class="btn ghost slim" type="button" data-rating-export>
+            Export CSV
+          </button>
+        </header>
+        <div class="rating-summary" data-rating-summary>
+          <p>Breakfast — <span data-rating-summary-breakfast>—</span></p>
+          <p>Lunch — <span data-rating-summary-lunch>—</span></p>
+          <p>Snacks — <span data-rating-summary-snacks>—</span></p>
+          <p>Dinner — <span data-rating-summary-dinner>—</span></p>
+        </div>
+        <form data-rating-form>
+          <label class="stack">
+            <span>Meal</span>
+            <select data-rating-meal>
+              <option value="breakfast">Breakfast</option>
+              <option value="lunch">Lunch</option>
+              <option value="snacks">Snacks</option>
+              <option value="dinner">Dinner</option>
+            </select>
+          </label>
+          <div class="star-input" data-rating-stars aria-label="Star rating" role="radiogroup">
+            <button type="button" aria-label="1 star" data-rating-star="1">★</button>
+            <button type="button" aria-label="2 stars" data-rating-star="2">★</button>
+            <button type="button" aria-label="3 stars" data-rating-star="3">★</button>
+            <button type="button" aria-label="4 stars" data-rating-star="4">★</button>
+            <button type="button" aria-label="5 stars" data-rating-star="5">★</button>
+          </div>
+          <label class="stack">
+            <span>Comment (optional)</span>
+            <textarea
+              data-rating-comment
+              rows="2"
+              placeholder="Add a quick note for the mess team..."
+            ></textarea>
+          </label>
+          <button class="btn primary" type="submit">Save feedback</button>
+        </form>
+        <div class="rating-list" data-rating-list>
+          <p class="meta">No feedback saved for this day yet.</p>
+        </div>
+      </section>
+
+      <section class="card reminder-card" data-reminder-card>
+        <header>
+          <div>
+            <p class="eyebrow">Meal reminders</p>
+            <h2>Offline notifications</h2>
+            <p class="meta">Keep this tab open to get friendly reminders.</p>
+          </div>
+        </header>
+        <div class="reminder-list">
+          <label class="reminder-toggle">
+            <input type="checkbox" value="breakfast" data-reminder-toggle />
+            <span>Breakfast (7:45 AM)</span>
+          </label>
+          <label class="reminder-toggle">
+            <input type="checkbox" value="lunch" data-reminder-toggle />
+            <span>Lunch (12:45 PM)</span>
+          </label>
+          <label class="reminder-toggle">
+            <input type="checkbox" value="snacks" data-reminder-toggle />
+            <span>Snacks (5:30 PM)</span>
+          </label>
+          <label class="reminder-toggle">
+            <input type="checkbox" value="dinner" data-reminder-toggle />
+            <span>Dinner (8:15 PM)</span>
+          </label>
+        </div>
+        <p class="meta reminder-note" data-reminder-note>
+          Notifications are delivered only while this page stays open.
+        </p>
       </section>
     </main>
 

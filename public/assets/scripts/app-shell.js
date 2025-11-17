@@ -1,11 +1,44 @@
 (() => {
   const navToggle = document.querySelector('[data-nav-toggle]');
   const nav = document.querySelector('.site-nav');
+  const themeSelect = document.querySelector('[data-theme-select]');
+  const THEME_KEY = 'mess-theme-choice';
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+  let themeChoice = localStorage.getItem(THEME_KEY) || 'auto';
+
+  initTheme();
 
   if (navToggle && nav) {
     navToggle.addEventListener('click', () => {
       nav.classList.toggle('open');
     });
+  }
+
+  function initTheme() {
+    applyTheme(themeChoice);
+    if (themeSelect) {
+      themeSelect.value = themeChoice;
+      themeSelect.addEventListener('change', (event) => {
+        themeChoice = event.target.value;
+        applyTheme(themeChoice);
+      });
+    }
+    prefersDark.addEventListener('change', () => {
+      if (themeChoice === 'auto') applyTheme('auto');
+    });
+  }
+
+  function applyTheme(choice) {
+    localStorage.setItem(THEME_KEY, choice);
+    const resolved =
+      choice === 'dark'
+        ? 'dark'
+        : choice === 'light'
+          ? 'light'
+          : prefersDark.matches
+            ? 'dark'
+            : 'light';
+    document.documentElement.dataset.theme = resolved;
   }
 
   const today = new Date();

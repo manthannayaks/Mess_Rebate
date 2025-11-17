@@ -15,9 +15,19 @@
         <span aria-hidden="true">🍽️</span>
         <span>Campus Mess Companion</span>
       </a>
-      <button class="nav-toggle" type="button" data-nav-toggle aria-label="Toggle navigation">
-        ☰
-      </button>
+      <div class="header-actions">
+        <div class="theme-toggle">
+          <span>Theme</span>
+          <select data-theme-select aria-label="Theme">
+            <option value="auto">Auto</option>
+            <option value="light">Light</option>
+            <option value="dark">Dark</option>
+          </select>
+        </div>
+        <button class="nav-toggle" type="button" data-nav-toggle aria-label="Toggle navigation">
+          ☰
+        </button>
+      </div>
       <nav class="site-nav">
         <a href="index.html">Home</a>
         <a href="mess-menu.html">Mess Menu</a>
