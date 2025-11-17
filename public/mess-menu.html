@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mess Menu • Campus Mess Companion</title>
+    <link rel="stylesheet" href="assets/styles/main.css" />
+    <script src="data/menu-data.js" defer></script>
+    <script src="assets/scripts/app-shell.js" defer></script>
+    <script src="assets/scripts/menu.js" defer></script>
+  </head>
+  <body class="page-menu">
+    <header class="site-header">
+      <a class="brand" href="index.html">
+        <span aria-hidden="true">🍽️</span>
+        <span>Campus Mess Companion</span>
+      </a>
+      <button class="nav-toggle" type="button" data-nav-toggle aria-label="Toggle navigation">
+        ☰
+      </button>
+      <nav class="site-nav">
+        <a href="index.html">Home</a>
+        <a href="mess-menu.html" class="is-active">Mess Menu</a>
+        <a href="rebates.html">Mess Rebate</a>
+        <a href="academic-calendar.html">Academic Calendar</a>
+      </nav>
+    </header>
+
+    <main class="page-content">
+      <section class="hero-card compact">
+        <div>
+          <p class="eyebrow">Mess Menu</p>
+          <h1>Today’s schedule at a glance</h1>
+          <p class="lead">
+            Automatically shows today’s plan with an option to switch days or toggle between
+            vegetarian and non-vegetarian menus.
+          </p>
+        </div>
+        <div class="hero-meta">
+          <p class="meta-label">Day</p>
+          <p class="hero-date" data-current-day>—</p>
+          <p class="meta-label">Date</p>
+          <p class="hero-date" data-current-date>—</p>
+        </div>
+      </section>
+
+      <section class="card split menu-controls-card">
+        <div>
+          <h2>Choose a menu</h2>
+          <p>Switch plans to view veg or non-veg schedules sourced from the latest CSVs.</p>
+          <div class="menu-tabs" data-menu-tabs></div>
+        </div>
+        <label class="menu-select">
+          <span>Select day</span>
+          <select data-menu-day aria-label="Select day of week">
+            <option>Monday</option>
+            <option>Tuesday</option>
+            <option>Wednesday</option>
+            <option>Thursday</option>
+            <option>Friday</option>
+            <option>Saturday</option>
+            <option>Sunday</option>
+          </select>
+        </label>
+      </section>
+
+      <section class="menu-day card" data-menu-output>
+        <p class="meta-label">Schedule</p>
+        <h2 data-menu-title>—</h2>
+        <div class="menu-grid" data-menu-grid></div>
+        <p class="meta-label" data-menu-updated></p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>Update <code>data__/Menu</code> and rebuild to refresh the menus.</p>
+    </footer>
+  </body>
+</html>
+

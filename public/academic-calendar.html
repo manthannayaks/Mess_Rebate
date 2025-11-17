@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Academic Calendar • Campus Mess Companion</title>
+    <link rel="stylesheet" href="assets/styles/main.css" />
+    <script src="data/calendar-data.js" defer></script>
+    <script src="assets/scripts/app-shell.js" defer></script>
+    <script src="assets/scripts/calendar.js" defer></script>
+  </head>
+  <body class="page-calendar">
+    <header class="site-header">
+      <a class="brand" href="index.html">
+        <span aria-hidden="true">🍽️</span>
+        <span>Campus Mess Companion</span>
+      </a>
+      <button class="nav-toggle" type="button" data-nav-toggle aria-label="Toggle navigation">
+        ☰
+      </button>
+      <nav class="site-nav">
+        <a href="index.html">Home</a>
+        <a href="mess-menu.html">Mess Menu</a>
+        <a href="rebates.html">Mess Rebate</a>
+        <a href="academic-calendar.html" class="is-active">Academic Calendar</a>
+      </nav>
+    </header>
+
+    <main class="page-content">
+      <section class="hero-card compact">
+        <div>
+          <p class="eyebrow">Academic calendar</p>
+          <h1>Visual schedule with quick PDF access</h1>
+          <p class="lead">
+            Holidays, exams, and important institute events are laid out in a grid so you
+            can plan fast — and the official PDF is a click away when you need every detail.
+          </p>
+        </div>
+        <div class="hero-meta">
+          <p class="meta-label">Academic Year</p>
+          <p class="hero-date" data-academic-year>2025-26</p>
+          <button class="btn primary" type="button" data-open-calendar>
+            Open full calendar
+          </button>
+        </div>
+      </section>
+
+      <section class="card info seasons" data-season-list>
+        <h2>Term overview</h2>
+        <div class="season-grid" data-season-grid></div>
+      </section>
+
+      <section class="calendar-grid-wrap" data-calendar-grid>
+        <!-- months will render here -->
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>
+        Replace <code>data__/Academic Calender/Academic_Calender_2025-26.pdf</code> or edit
+        <code>calendar-events.json</code> then rebuild to refresh this page.
+      </p>
+    </footer>
+  </body>
+</html>
+

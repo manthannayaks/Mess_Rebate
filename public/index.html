@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Campus Mess Companion</title>
+    <meta
+      name="description"
+      content="Offline-ready dashboard for mess rebates, menus, and the academic calendar."
+    />
+    <link rel="stylesheet" href="assets/styles/main.css" />
+    <script src="assets/scripts/app-shell.js" defer></script>
+  </head>
+  <body class="page-landing">
+    <header class="site-header">
+      <a class="brand" href="index.html">
+        <span aria-hidden="true">🍽️</span>
+        <span>Campus Mess Companion</span>
+      </a>
+      <button class="nav-toggle" type="button" data-nav-toggle aria-label="Toggle navigation">
+        ☰
+      </button>
+      <nav class="site-nav">
+        <a href="index.html" class="is-active">Home</a>
+        <a href="mess-menu.html">Mess Menu</a>
+        <a href="rebates.html">Mess Rebate</a>
+        <a href="academic-calendar.html">Academic Calendar</a>
+      </nav>
+    </header>
+
+    <main class="page-content">
+      <section class="hero-card">
+        <div>
+          <p class="eyebrow">Offline Toolkit</p>
+          <h1>Mess life doesn’t need the internet.</h1>
+          <p class="lead">
+            Track rebates, browse menus, and plan using the academic calendar — all powered
+            by your local data folder.
+          </p>
+          <div class="hero-actions">
+            <a class="btn primary" href="rebates.html">Open Rebate Lookup</a>
+            <a class="btn ghost" href="mess-menu.html">View Mess Menu</a>
+          </div>
+        </div>
+        <div class="hero-meta">
+          <p class="meta-label">Today</p>
+          <p class="hero-date" data-current-day>—</p>
+          <p class="hero-date" data-current-date>—</p>
+          <p class="meta-label">Academic Year</p>
+          <p class="hero-date" data-academic-year>2025-26</p>
+        </div>
+      </section>
+
+      <section class="grid grid-3">
+        <article class="card highlight">
+          <p class="eyebrow">Rebate Lookup</p>
+          <h2>Instant roll number search</h2>
+          <p>
+            Dive into a student’s complete rebate history and totals. Data refreshes the
+            moment you rebuild from <code>data__/Mess Bill</code>.
+          </p>
+          <a href="rebates.html" class="card-link">Search rebates →</a>
+        </article>
+        <article class="card highlight">
+          <p class="eyebrow">Mess Menu</p>
+          <h2>Veg &amp; Non-veg plans</h2>
+          <p>
+            Auto-loads today’s schedule with a clean UI for navigating other days and
+            switching plans.
+          </p>
+          <a href="mess-menu.html" class="card-link">Browse menu →</a>
+        </article>
+        <article class="card highlight">
+          <p class="eyebrow">Academic Calendar</p>
+          <h2>Grid view + PDF</h2>
+          <p>
+            Visual calendar with holidays, events, and a quick jump to the official PDF if
+            you need the full document.
+          </p>
+          <a href="academic-calendar.html" class="card-link">Plan ahead →</a>
+        </article>
+      </section>
+
+      <section class="card info">
+        <div>
+          <h2>How updates work</h2>
+          <p>
+            Keep the <code>data__/</code> folder updated with the latest mess bills,
+            menus, and calendar files. Run <code>npm run build:data</code> whenever the
+            files change to regenerate the offline datasets.
+          </p>
+        </div>
+        <ul class="info-list">
+          <li>
+            <strong>Mess Bill CSVs</strong>
+            <span>Drop new months inside <code>data__/Mess Bill</code></span>
+          </li>
+          <li>
+            <strong>Menu CSVs</strong>
+            <span>Place veg/non-veg plans in <code>data__/Menu</code></span>
+          </li>
+          <li>
+            <strong>Academic Calendar</strong>
+            <span>Replace the PDF or edit <code>calendar-events.json</code></span>
+          </li>
+        </ul>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>Built for any residential campus — no institute branding, no internet needed.</p>
+    </footer>
+  </body>
+</html>

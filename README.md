@@ -1,164 +1,59 @@
-# Mess Rebate Tracker - IIT Jodhpur
+# Campus Mess Companion (Offline)
 
-A web application to track mess rebates for students at IIT Jodhpur. Students can check their rebate amount by entering their roll number.
+Clean, institute-neutral dashboard that works entirely offline. Drop your latest mess bills, menus, and academic calendar files into `data__/`, regenerate the datasets, and open the static pages under `public/`. The app now ships three dedicated sections:
 
-## Features
+- **Landing page:** Minimal overview with links to every tool.
+- **Mess Rebate:** Fast roll-number lookup with totals and month-wise tables.
+- **Mess Menu:** Stylish day-by-day layout for both vegetarian and non-vegetarian plans.
+- **Academic Calendar:** Calendar-grid view of holidays/events plus an “Open Full Calendar” button for the official PDF.
 
-- **Student Lookup**: Enter roll number to view student information and rebate details
-- **Monthly Tracking**: View rebate data for each month from June 2024 onwards
-- **Total Calculation**: Automatic calculation of total rebate amount
-- **Modern UI**: Responsive design with IIT Jodhpur branding
-- **Database Integration**: MongoDB for data storage
-
-## Project Structure
+## Project structure
 
 ```
-Mess_Rebate_Tracker/
-├── Back_end/
-│   ├── config/
-│   │   └── db.js              # Database configuration
-│   ├── controllers/
-│   │   └── studentController.js # API controllers
-│   ├── data/
-│   │   └── sampleData.json    # Sample student data
-│   ├── models/
-│   │   └── Student.js         # Student data model
-│   ├── routes/
-│   │   └── studentRoutes.js   # API routes
-│   ├── utils/
-│   │   └── excelParser.js     # Data import utilities
-│   ├── package.json
-│   └── server.js              # Main server file
-├── Front_end/
-│   ├── index.html             # Main HTML file
-│   ├── script.js              # Frontend JavaScript
-│   ├── style.css              # Styling
-│   └── package.json
-└── README.md
+data__/                         Raw offline files you maintain
+  ├─ Mess Bill/*.csv            ← monthly rebate data (2025 onward)
+  ├─ Menu/*.csv                 ← veg / non-veg plans
+  └─ Academic Calender/
+       ├─ Academic_*.pdf        ← official calendar PDF
+       └─ calendar-events.json  ← structured events for dashboard view
+public/
+  ├─ index.html                 ← landing page
+  ├─ mess-menu.html             ← menu page
+  ├─ rebates.html               ← rebate lookup
+  ├─ academic-calendar.html     ← calendar board
+  ├─ assets/                    ← CSS + JS + copied PDF
+  └─ data/                      ← auto-generated JS datasets
+scripts/
+  ├─ build-dataset.mjs          ← parses data__/ and rewrites public/data/*
+  └─ preview.mjs                ← lightweight static server (optional)
 ```
 
-## Prerequisites
-
-- Node.js (v14 or higher)
-- MongoDB (running locally on port 27017)
-- npm or yarn
-
-## Installation & Setup
-
-### 1. Install Backend Dependencies
+## Getting started
 
 ```bash
-cd Back_end
-npm install
+npm install          # only once
+npm run build:data   # parse CSVs + copy PDF + emit JS datasets
+npm run preview      # serve ./public at http://localhost:4173
 ```
 
-### 2. Install Frontend Dependencies
+Prefer to double-click `public/index.html`? That works offline too—just remember to rebuild data whenever the CSV/PDF files change.
 
-```bash
-cd Front_end
-npm install
-```
+## Updating data
 
-### 3. Start MongoDB
+1. **Mess bills:** Drop the latest month’s CSV inside `data__/Mess Bill/` (file name should include the month + year, e.g. `November 2025 Mess Bill.csv`).
+2. **Menus:** Export the veg/non-veg planner as CSV and place them in `data__/Menu/`. The build script auto-detects plan type based on the filename (looks for “non” to treat it as non-veg).
+3. **Academic calendar:**
+   - Copy the PDF into `data__/Academic Calender/`.
+   - Update `calendar-events.json` to keep the on-page grid in sync (see the existing file for the schema).
+4. Run `npm run build:data` to refresh `public/data/*.js` and copy the PDF into `public/assets/`.
 
-Make sure MongoDB is running on your system:
-```bash
-mongod
-```
+The resulting `public/` folder is the only thing you need to share or deploy—no databases, APIs, or internet access required.
 
-### 4. Start the Backend Server
+## Notes & assumptions
 
-```bash
-cd Back_end
-npm start
-```
+- Rebates are calculated as `absent_days × ₹140`. Adjust `RATE_PER_ABSENT_DAY` in `scripts/build-dataset.mjs` if the policy changes.
+- The parser targets 2025-onward data; older months are ignored automatically.
+- Menu CSVs may come from Excel exports—keep the first column as the day name and the second as the meal name (Breakfast/Lunch/Snacks/Dinner) for reliable parsing.
+- Calendar events are flexible. Use categories such as `holiday`, `exam`, `break`, `event`, `milestone`, or `academic` to control badge colors in the grid.
 
-The server will start on `http://localhost:5000`
-
-### 5. Start the Frontend
-
-```bash
-cd Front_end
-npm start
-```
-
-The frontend will be available at `http://localhost:3000`
-
-## Usage
-
-1. Open your browser and go to `http://localhost:3000`
-2. Enter a student's roll number (e.g., B24CM1010, B24CS1001)
-3. Click "Get Rebate Data" to view the student's information and rebate details
-4. The system will display:
-   - Student name and roll number
-   - Monthly breakdown of present/absent days and rebate amount
-   - Total rebate amount
-
-## Sample Data
-
-The application comes with sample data for testing:
-
-- **B24CM1010** - Rajesh Kumar
-- **B24CM1044** - Priya Sharma  
-- **B24CS1001** - Amit Singh
-- **B24EE1005** - Sneha Patel
-- **B24ME1008** - Vikram Joshi
-
-## API Endpoints
-
-- `GET /api/students/:roll` - Get student data by roll number
-- `POST /api/students` - Add new student
-- `PUT /api/students/:roll` - Update student data
-- `DELETE /api/students/:roll` - Delete student
-
-## Data Structure
-
-Each student record contains:
-- `rollNo`: Student's roll number
-- `name`: Student's full name
-- `records`: Monthly data object with:
-  - `present`: Number of days present in mess
-  - `absent`: Number of days absent from mess
-  - `rebate`: Calculated rebate amount (₹140 per absent day)
-
-## Adding New Data
-
-### Method 1: Using the API
-```javascript
-// POST to /api/students
-{
-  "rollNo": "B24CS1002",
-  "name": "New Student",
-  "records": {
-    "jun2024": { "present": 20, "absent": 5, "rebate": 700 }
-  }
-}
-```
-
-### Method 2: Using Excel Import
-1. Create an Excel file with columns: RollNo, Name, Month, AteDays, RebateDays, TotalRebate
-2. Place the file in the Back_end/data/ directory
-3. Update server.js to call `importExcel("./data/yourfile.xlsx")`
-
-## Customization
-
-- **Rebate Rate**: Change the `perDayRate` variable in `Front_end/script.js` (currently ₹140)
-- **Styling**: Modify `Front_end/style.css` for different colors/themes
-- **Database**: Update connection string in `Back_end/config/db.js`
-
-## Troubleshooting
-
-1. **MongoDB Connection Error**: Ensure MongoDB is running on port 27017
-2. **CORS Issues**: Check that the frontend is running on port 3000 and backend on port 5000
-3. **No Data Found**: Verify that sample data has been imported successfully
-
-## Technologies Used
-
-- **Backend**: Node.js, Express.js, MongoDB, Mongoose
-- **Frontend**: HTML5, CSS3, JavaScript (ES6+)
-- **Database**: MongoDB
-- **Styling**: Custom CSS with responsive design
-
-## License
-
-This project is created for IIT Jodhpur mess rebate tracking system.
+Happy tracking! 🚀
