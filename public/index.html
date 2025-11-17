@@ -3,141 +3,112 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Mess Rebate Tracker (Offline)</title>
-    <link rel="stylesheet" href="styles.css" />
-    <script src="data/rebates-data.js" defer></script>
-    <script src="data/menu-data.js" defer></script>
-    <script src="app.js" defer></script>
+    <title>Campus Mess Companion</title>
+    <meta
+      name="description"
+      content="Offline-ready dashboard for mess rebates, menus, and the academic calendar."
+    />
+    <link rel="stylesheet" href="assets/styles/main.css" />
+    <script src="assets/scripts/app-shell.js" defer></script>
   </head>
-  <body>
-    <header class="app-header">
-      <div>
-        <h1>Mess Rebate Tracker</h1>
-        <p>Offline lookup for January&nbsp;2025 – October&nbsp;2025 rebates</p>
-      </div>
-      <div class="badge">Offline Ready</div>
+  <body class="page-landing">
+    <header class="site-header">
+      <a class="brand" href="index.html">
+        <span aria-hidden="true">🍽️</span>
+        <span>Campus Mess Companion</span>
+      </a>
+      <button class="nav-toggle" type="button" data-nav-toggle aria-label="Toggle navigation">
+        ☰
+      </button>
+      <nav class="site-nav">
+        <a href="index.html" class="is-active">Home</a>
+        <a href="mess-menu.html">Mess Menu</a>
+        <a href="rebates.html">Mess Rebate</a>
+        <a href="academic-calendar.html">Academic Calendar</a>
+      </nav>
     </header>
 
-    <nav class="app-nav">
-      <a href="#rebates" class="nav-link">Rebate Lookup</a>
-      <a href="#mess-menu" class="nav-link">Mess Menu</a>
-    </nav>
-
-    <main>
-      <section class="status-card" id="dashboard">
+    <main class="page-content">
+      <section class="hero-card">
         <div>
-          <p class="meta">Today</p>
-          <h2 id="today-date">—</h2>
-          <p class="today-day" id="today-day">—</p>
+          <p class="eyebrow">Offline Toolkit</p>
+          <h1>Mess life doesn’t need the internet.</h1>
+          <p class="lead">
+            Track rebates, browse menus, and plan using the academic calendar — all powered
+            by your local data folder.
+          </p>
+          <div class="hero-actions">
+            <a class="btn primary" href="rebates.html">Open Rebate Lookup</a>
+            <a class="btn ghost" href="mess-menu.html">View Mess Menu</a>
+          </div>
         </div>
-        <div class="calendar-link">
-          <p class="meta">Academic Calendar</p>
-          <a
-            id="calendar-link"
-            href="assets/academic-calendar.pdf"
-            target="_blank"
-            rel="noreferrer"
-            >Download 2025-26 PDF</a
-          >
+        <div class="hero-meta">
+          <p class="meta-label">Today</p>
+          <p class="hero-date" data-current-day>—</p>
+          <p class="hero-date" data-current-date>—</p>
+          <p class="meta-label">Academic Year</p>
+          <p class="hero-date" data-academic-year>2025-26</p>
         </div>
       </section>
 
-      <section class="search-card" id="rebates">
-        <label for="roll-input">Enter roll number</label>
-        <div class="input-row">
-          <input
-            id="roll-input"
-            type="text"
-            placeholder="e.g. B24CM1044"
-            autocomplete="off"
-            spellcheck="false"
-          />
-          <button id="clear-btn" type="button">Clear</button>
+      <section class="grid grid-3">
+        <article class="card highlight">
+          <p class="eyebrow">Rebate Lookup</p>
+          <h2>Instant roll number search</h2>
+          <p>
+            Dive into a student’s complete rebate history and totals. Data refreshes the
+            moment you rebuild from <code>data__/Mess Bill</code>.
+          </p>
+          <a href="rebates.html" class="card-link">Search rebates →</a>
+        </article>
+        <article class="card highlight">
+          <p class="eyebrow">Mess Menu</p>
+          <h2>Veg &amp; Non-veg plans</h2>
+          <p>
+            Auto-loads today’s schedule with a clean UI for navigating other days and
+            switching plans.
+          </p>
+          <a href="mess-menu.html" class="card-link">Browse menu →</a>
+        </article>
+        <article class="card highlight">
+          <p class="eyebrow">Academic Calendar</p>
+          <h2>Grid view + PDF</h2>
+          <p>
+            Visual calendar with holidays, events, and a quick jump to the official PDF if
+            you need the full document.
+          </p>
+          <a href="academic-calendar.html" class="card-link">Plan ahead →</a>
+        </article>
+      </section>
+
+      <section class="card info">
+        <div>
+          <h2>How updates work</h2>
+          <p>
+            Keep the <code>data__/</code> folder updated with the latest mess bills,
+            menus, and calendar files. Run <code>npm run build:data</code> whenever the
+            files change to regenerate the offline datasets.
+          </p>
         </div>
-        <p id="stats" class="meta"></p>
-      </section>
-
-      <section id="result-panel" class="result-card hidden">
-        <header>
-          <div>
-            <h2 id="student-name"></h2>
-            <p id="student-roll" class="highlight"></p>
-          </div>
-          <div class="totals">
-            <div>
-              <p>Total Rebate</p>
-              <strong id="total-rebate">₹0</strong>
-            </div>
-            <div>
-              <p>Absent Days</p>
-              <strong id="total-absent">0</strong>
-            </div>
-            <div>
-              <p>Months</p>
-              <strong id="total-months">0</strong>
-            </div>
-          </div>
-        </header>
-
-        <dl class="student-meta">
-          <div>
-            <dt>Hostel</dt>
-            <dd id="student-hostel">—</dd>
-          </div>
-          <div>
-            <dt>Contact</dt>
-            <dd id="student-contact">—</dd>
-          </div>
-        </dl>
-
-        <table>
-          <thead>
-            <tr>
-              <th>Month</th>
-              <th>Present</th>
-              <th>Absent</th>
-              <th>Rebate</th>
-            </tr>
-          </thead>
-          <tbody id="records-body"></tbody>
-        </table>
-      </section>
-
-      <section id="empty-state" class="empty-card">
-        <p>Type a roll number to see the full rebate history.</p>
-      </section>
-
-      <section id="mess-menu" class="menu-card">
-        <header class="menu-header">
-          <div>
-            <h2>Mess Menu</h2>
-            <p class="meta">Updated monthly (Veg &amp; Non-Veg)</p>
-          </div>
-          <div class="menu-controls">
-            <div id="menu-tabs" class="menu-tabs"></div>
-            <label class="menu-select">
-              <span>Day</span>
-              <select id="menu-day-select" aria-label="Select day">
-                <option>Monday</option>
-                <option>Tuesday</option>
-                <option>Wednesday</option>
-                <option>Thursday</option>
-                <option>Friday</option>
-                <option>Saturday</option>
-                <option>Sunday</option>
-              </select>
-            </label>
-          </div>
-        </header>
-        <div id="menu-days" class="menu-days-grid"></div>
+        <ul class="info-list">
+          <li>
+            <strong>Mess Bill CSVs</strong>
+            <span>Drop new months inside <code>data__/Mess Bill</code></span>
+          </li>
+          <li>
+            <strong>Menu CSVs</strong>
+            <span>Place veg/non-veg plans in <code>data__/Menu</code></span>
+          </li>
+          <li>
+            <strong>Academic Calendar</strong>
+            <span>Replace the PDF or edit <code>calendar-events.json</code></span>
+          </li>
+        </ul>
       </section>
     </main>
 
-    <footer>
-      <p>
-        Data generated from <code>Data__/</code> reports. Update the folder and run
-        <code>npm run build:data</code> to refresh.
-      </p>
+    <footer class="site-footer">
+      <p>Built for any residential campus — no institute branding, no internet needed.</p>
     </footer>
   </body>
 </html>

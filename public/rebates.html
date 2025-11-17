@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mess Rebate Lookup • Campus Mess Companion</title>
+    <link rel="stylesheet" href="assets/styles/main.css" />
+    <script src="data/rebates-data.js" defer></script>
+    <script src="assets/scripts/app-shell.js" defer></script>
+    <script src="assets/scripts/rebates.js" defer></script>
+  </head>
+  <body class="page-rebate">
+    <header class="site-header">
+      <a class="brand" href="index.html">
+        <span aria-hidden="true">🍽️</span>
+        <span>Campus Mess Companion</span>
+      </a>
+      <button class="nav-toggle" type="button" data-nav-toggle aria-label="Toggle navigation">
+        ☰
+      </button>
+      <nav class="site-nav">
+        <a href="index.html">Home</a>
+        <a href="mess-menu.html">Mess Menu</a>
+        <a href="rebates.html" class="is-active">Mess Rebate</a>
+        <a href="academic-calendar.html">Academic Calendar</a>
+      </nav>
+    </header>
+
+    <main class="page-content rebate-layout">
+      <section class="hero-card compact hero-span">
+        <div>
+          <p class="eyebrow">Student rebates</p>
+          <h1>Lookup totals in seconds</h1>
+          <p class="lead">
+            Search by roll number to get the student profile, monthly breakdown, and
+            cumulative rebate till today.
+          </p>
+        </div>
+        <div class="hero-meta">
+          <p class="meta-label">Dataset refreshed</p>
+          <p class="hero-date" data-rebate-generated>—</p>
+          <p class="meta-label">Months tracked</p>
+          <p class="hero-date" data-rebate-months>—</p>
+        </div>
+      </section>
+
+      <section class="card stats-grid hero-span">
+        <article>
+          <p class="meta-label">Total students</p>
+          <p class="stat-value" data-stat-students>—</p>
+          <p class="stat-subtext">records ready for offline lookup</p>
+        </article>
+        <article>
+          <p class="meta-label">Rebate / absent day</p>
+          <p class="stat-value" data-stat-rate>₹0</p>
+          <p class="stat-subtext">policy currently applied</p>
+        </article>
+        <article class="coverage">
+          <p class="meta-label">Months covered</p>
+          <div class="badge-row" data-stat-months></div>
+        </article>
+      </section>
+
+      <section class="card search-card" data-rebate-search>
+        <form data-rebate-form>
+          <label for="roll-input" class="eyebrow">Roll number</label>
+          <div class="input-row">
+            <input
+              id="roll-input"
+              name="roll"
+              type="text"
+              placeholder="e.g. B25EE1001"
+              autocomplete="off"
+              spellcheck="false"
+              required
+            />
+            <button class="btn ghost" type="button" data-action="clear">Clear</button>
+          </div>
+        </form>
+        <p class="meta" data-rebate-stats>—</p>
+      </section>
+
+      <section class="card recent-card" data-recent-card>
+        <header>
+          <div>
+            <p class="eyebrow">Recent lookups</p>
+            <p class="meta">Stored locally for quick access.</p>
+          </div>
+          <button class="btn ghost slim" type="button" data-recent-clear>
+            Clear
+          </button>
+        </header>
+        <ul class="recent-list" data-recent-list>
+          <li class="meta">No lookups yet.</li>
+        </ul>
+      </section>
+
+      <section class="card result-card hidden" data-rebate-result>
+        <header>
+          <div>
+            <p class="eyebrow" data-student-hostel>—</p>
+            <h2 data-student-name>—</h2>
+            <p class="meta" data-student-roll>—</p>
+          </div>
+          <dl class="quick-stats">
+            <div>
+              <dt>Total rebate</dt>
+              <dd data-total-rebate>₹0</dd>
+            </div>
+            <div>
+              <dt>Absent days</dt>
+              <dd data-total-absent>0</dd>
+            </div>
+            <div>
+              <dt>Months</dt>
+              <dd data-total-months>0</dd>
+            </div>
+          </dl>
+        </header>
+        <dl class="details">
+          <div>
+            <dt>Contact</dt>
+            <dd data-student-contact>—</dd>
+          </div>
+          <div>
+            <dt>Rate per day</dt>
+            <dd data-rate-value>₹0</dd>
+          </div>
+        </dl>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Month</th>
+                <th>Present Days</th>
+                <th>Absent Days</th>
+                <th>Rebate</th>
+              </tr>
+            </thead>
+            <tbody data-records-body></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="card empty-state" data-rebate-empty>
+        <p>Type a roll number to load the student’s mess rebate summary.</p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>
+        Need new data? Replace the CSVs in <code>data__/Mess Bill</code> and rerun
+        <code>npm run build:data</code>.
+      </p>
+    </footer>
+  </body>
+</html>
+
