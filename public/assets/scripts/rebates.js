@@ -9,6 +9,50 @@
     maximumFractionDigits: 0,
   });
 
+  // ---------- SEMESTER CONFIG (mirror build-dataset.mjs) ----------
+  const SEMESTERS = [
+    {
+      key: '2024-25-sem2',
+      name: '2024-25 Sem 2',
+      start: { year: 2025, monthIndex: 0 },
+      end: { year: 2025, monthIndex: 5 },
+      paid: 19000,
+    },
+    {
+      key: '2025-26-sem1',
+      name: '2025-26 Sem 1',
+      start: { year: 2025, monthIndex: 6 },
+      end: { year: 2025, monthIndex: 11 },
+      paid: 19000,
+    },
+    {
+      key: '2025-26-sem2',
+      name: '2025-26 Sem 2',
+      start: { year: 2026, monthIndex: 0 },
+      end: { year: 2026, monthIndex: 5 },
+      paid: 0,
+    },
+  ];
+
+  const MONTH_ABBR_TO_INDEX = {
+    jan: 0, feb: 1, mar: 2, apr: 3, may: 4, jun: 5,
+    jul: 6, aug: 7, sep: 8, oct: 9, nov: 10, dec: 11,
+  };
+
+  function parseMonthKey(key) {
+    if (!key) return null;
+    const m = key.match(/^([a-z]{3})(\d{4})$/i);
+    if (!m) return null;
+    return { monthIndex: MONTH_ABBR_TO_INDEX[m[1].toLowerCase()], year: Number(m[2]) };
+  }
+
+  function monthWithinSem(year, monthIndex, sem) {
+    const sKey = sem.start.year * 12 + sem.start.monthIndex;
+    const eKey = sem.end.year * 12 + sem.end.monthIndex;
+    const mKey = year * 12 + monthIndex;
+    return mKey >= sKey && mKey <= eKey;
+  }
+
   const nodes = {
     form: document.querySelector('[data-rebate-form]'),
     input: document.querySelector('[data-rebate-form] input[name="roll"]'),
@@ -114,12 +158,7 @@
     nodes.roll.textContent = student.rollNo;
     nodes.contact.textContent = student.contact || '—';
 
-    nodes.totalRebate.textContent = formatter.format(
-      student.totals.rebateAmount || 0
-    );
-    nodes.totalAbsent.textContent = student.totals.absentDays ?? 0;
-    nodes.totalMonths.textContent = student.totals.monthsCount ?? 0;
-
+    // Render monthly table (rebate column shows '—' because rebate is semester-level)
     nodes.tableBody.innerHTML = student.records
       .map(
         (record) => `
@@ -127,12 +166,114 @@
           <td>${record.monthLabel}</td>
           <td>${record.presentDays}</td>
           <td>${record.absentDays}</td>
-          <td>${formatter.format(record.rebateAmount)}</td>
+          <td>—</td>
         </tr>`
       )
       .join('');
 
+    // Use semester summaries available in dataset if present; otherwise compute client-side
+    const semesterSummaries = (student.semesters && Array.isArray(student.semesters))
+      ? student.semesters.map((s) => ({ ...s })) // shallow copy
+      : computeSemestersClient(student);
+
+    // Render semester summary block (create if missing)
+    let semContainer = nodes.resultCard.querySelector('[data-semester-summary]');
+    if (!semContainer) {
+      semContainer = document.createElement('div');
+      semContainer.setAttribute('data-semester-summary', '');
+      semContainer.className = 'semester-summary';
+      // place it after the records table
+      const tableEl = nodes.tableBody && nodes.tableBody.closest('table');
+      if (tableEl && tableEl.parentElement) {
+        tableEl.parentElement.appendChild(semContainer);
+      } else {
+        nodes.resultCard.appendChild(semContainer);
+      }
+    }
+
+    // Build semester HTML (Option B: detailed breakdown)
+    semContainer.innerHTML = semesterSummaries
+      .map((s) => {
+        if (!s.isPaid) {
+          return `
+          <div class="sem-card sem-unpaid">
+            <h3>${s.name}</h3>
+            <p class="dimmed">No data for this semester → treated as <strong>Not Paid</strong>. Rebate: ₹0</p>
+          </div>`;
+        }
+        return `
+        <div class="sem-card">
+          <h3>${s.name}</h3>
+          <table class="sem-table">
+            <tr><td><strong>Amount paid</strong></td><td>${formatter.format(s.paid)}</td></tr>
+            <tr><td><strong>Present days (used)</strong></td><td>${s.presentDays}</td></tr>
+            <tr><td><strong>Used amount</strong></td><td>${formatter.format(s.usedAmount)}</td></tr>
+            <tr><td><strong>Rebate</strong></td><td>${formatter.format(s.rebate)}</td></tr>
+            <tr class="dimmed"><td colspan="2">(${formatter.format(s.paid)} - ${formatter.format(s.usedAmount)} = ${formatter.format(s.rebate)})</td></tr>
+          </table>
+        </div>`;
+      })
+      .join('');
+
+    // Total rebate = sum of semester rebates
+    const totalRebate = semesterSummaries.reduce((sum, s) => sum + (s.rebate || 0), 0);
+    nodes.totalRebate.textContent = formatter.format(totalRebate);
+
+    nodes.totalAbsent.textContent = student.totals.absentDays ?? 0;
+    nodes.totalMonths.textContent = student.totals.monthsCount ?? 0;
+
     rememberLookup(student);
+  }
+
+  function computeSemestersClient(student) {
+    const summaries = [];
+    for (const sem of SEMESTERS) {
+      // determine if semester has any global months by checking student.records months
+      const studentHasAnyMonth = student.records.some((rec) => {
+        const parsed = parseMonthKey(rec.monthKey);
+        if (!parsed) return false;
+        return monthWithinSem(parsed.year, parsed.monthIndex, sem);
+      });
+
+      const semConfiguredPaidAmount = sem.paid || 0;
+      const semConsideredPaid = semConfiguredPaidAmount > 0 && studentHasAnyMonth;
+
+      if (!semConsideredPaid) {
+        summaries.push({
+          key: sem.key,
+          name: sem.name,
+          paid: semConfiguredPaidAmount,
+          isPaid: false,
+          presentDays: 0,
+          usedAmount: 0,
+          rebate: 0,
+        });
+        continue;
+      }
+
+      let semPresentDays = 0;
+      for (const rec of student.records) {
+        const parsed = parseMonthKey(rec.monthKey);
+        if (!parsed) continue;
+        if (monthWithinSem(parsed.year, parsed.monthIndex, sem)) {
+          semPresentDays += Number(rec.presentDays) || 0;
+        }
+      }
+
+      const usedAmount = semPresentDays * rate;
+      const rebate = Math.max(0, semConfiguredPaidAmount - usedAmount);
+
+      summaries.push({
+        key: sem.key,
+        name: sem.name,
+        paid: semConfiguredPaidAmount,
+        isPaid: true,
+        presentDays: semPresentDays,
+        usedAmount,
+        rebate,
+      });
+    }
+    return summaries;
   }
 
   function showEmpty(message) {
@@ -215,4 +356,3 @@
   }
 
 })();
-

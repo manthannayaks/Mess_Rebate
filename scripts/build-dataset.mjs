@@ -16,8 +16,41 @@ const MENU_DATA_FILE = path.join(DATA_DIR, 'menu-data.js');
 const CALENDAR_DATA_FILE = path.join(DATA_DIR, 'calendar-data.js');
 const CALENDAR_PDF_FILE = path.join(ASSET_DIR, 'academic-calendar.pdf');
 
-const RATE_PER_ABSENT_DAY = 140;
+const RATE_PER_ABSENT_DAY = 140; // used as per-day rate (also used as per-day usedAmount multiplier)
 const EARLIEST_YEAR = 2025;
+
+/**
+ * SEMESTER CONFIGURATION
+ * - paid: amount paid for that semester (set to 0 if not paid yet)
+ * - start/end: { year, monthIndex } where monthIndex 0 = Jan ... 11 = Dec
+ *
+  * NOTE: Rebate is calculated per student. A semester is considered "paid"
+ * for a student only if that student has at least one month of data inside
+ * that semester. If the student has zero months for a semester, that
+ * semester is treated as NOT PAID for that student → rebate = 0.*/
+const SEMESTERS = [
+  {
+    key: '2024-25-sem2',
+    name: '2024-25 Sem 2',
+    start: { year: 2025, monthIndex: 0 },
+    end: { year: 2025, monthIndex: 5 },
+    paid: 19000,
+  },
+  {
+    key: '2025-26-sem1',
+    name: '2025-26 Sem 1',
+    start: { year: 2025, monthIndex: 6 },
+    end: { year: 2025, monthIndex: 11 },
+    paid: 19000,
+  },
+  {
+    key: '2025-26-sem2',
+    name: '2025-26 Sem 2',
+    start: { year: 2026, monthIndex: 0 },
+    end: { year: 2026, monthIndex: 5 },
+    paid: 0,
+  },
+];
 
 const MONTH_NAME_MAP = new Map(
   [
@@ -34,6 +67,10 @@ const MONTH_NAME_MAP = new Map(
     'november',
     'december',
   ].map((name, idx) => [name, idx])
+);
+
+const MONTH_ABBR_TO_INDEX = new Map(
+  Array.from(MONTH_NAME_MAP.keys()).map((full, idx) => [full.slice(0, 3), idx])
 );
 
 async function main() {
@@ -97,8 +134,7 @@ async function buildRebateDataset() {
     monthMeta.set(monthInfo.key, meta);
 
     console.log(
-      `• ${monthInfo.label.padEnd(18)} → ${normalized.length
-      } records from ${fileName}`
+      `• ${monthInfo.label.padEnd(18)} → ${normalized.length} records from ${fileName}`
     );
   }
 
@@ -113,26 +149,87 @@ async function buildRebateDataset() {
     orderedMonths.map((meta, index) => [meta.key, index])
   );
 
+  
   const payload = {};
   const sortedStudents = Array.from(students.values()).sort((a, b) =>
     a.rollNo.localeCompare(b.rollNo)
   );
 
   for (const student of sortedStudents) {
+    // sort monthly records chronologically
     student.records.sort(
       (a, b) =>
         (monthOrderMap.get(a.monthKey) ?? 0) -
         (monthOrderMap.get(b.monthKey) ?? 0)
     );
+
+    // Ensure monthly rebateAmount is zero (we compute rebate per semester)
+    student.records = student.records.map((r) => ({ ...r, rebateAmount: 0 }));
+
+    // Aggregate totals (present/absent counts across all months available)
     const totals = student.records.reduce(
       (acc, record) => {
-        acc.presentDays += record.presentDays;
-        acc.absentDays += record.absentDays;
-        acc.rebateAmount += record.rebateAmount;
+        acc.presentDays += Number(record.presentDays) || 0;
+        acc.absentDays += Number(record.absentDays) || 0;
         return acc;
       },
-      { presentDays: 0, absentDays: 0, rebateAmount: 0 }
+      { presentDays: 0, absentDays: 0 }
     );
+
+    // ------------------------------
+// SEMESTER AGGREGATION & REBATE
+// ------------------------------
+const semesterSummaries = [];
+
+for (const sem of SEMESTERS) {
+
+  // STUDENT-SPECIFIC SEMESTER CHECK
+  const studentHasAnyMonth = student.records.some((rec) => {
+    const parsed = parseMonthKey(rec.monthKey);
+    return parsed && isMonthWithinSemester(parsed.year, parsed.monthIndex, sem);
+  });
+
+  const semPaidAmount = sem.paid || 0;
+  const isPaid = semPaidAmount > 0 && studentHasAnyMonth;
+
+  if (!isPaid) {
+    // Semester considered NOT paid → rebate = 0
+    semesterSummaries.push({
+      key: sem.key,
+      name: sem.name,
+      paid: semPaidAmount,
+      isPaid: false,
+      presentDays: 0,
+      usedAmount: 0,
+      rebate: 0,
+    });
+    continue;
+  }
+
+  // Semester is paid → now calculate present days ONLY for this student
+  let semPresentDays = 0;
+  for (const rec of student.records) {
+    const parsed = parseMonthKey(rec.monthKey);
+    if (parsed && isMonthWithinSemester(parsed.year, parsed.monthIndex, sem)) {
+      semPresentDays += Number(rec.presentDays) || 0;
+    }
+  }
+
+  const usedAmount = semPresentDays * RATE_PER_ABSENT_DAY;
+  const rebate = Math.max(0, semPaidAmount - usedAmount);
+
+  semesterSummaries.push({
+    key: sem.key,
+    name: sem.name,
+    paid: semPaidAmount,
+    isPaid: true,
+    presentDays: semPresentDays,
+    usedAmount,
+    rebate,
+  });
+}
+    // totals.rebateAmount is sum of semester rebates (not monthly)
+    const totalRebate = semesterSummaries.reduce((s, x) => s + (x.rebate || 0), 0);
 
     payload[student.rollNo] = {
       rollNo: student.rollNo,
@@ -142,10 +239,11 @@ async function buildRebateDataset() {
       totals: {
         presentDays: totals.presentDays,
         absentDays: totals.absentDays,
-        rebateAmount: totals.rebateAmount,
+        rebateAmount: totalRebate,
         monthsCount: student.records.length,
       },
       records: student.records,
+      semesters: semesterSummaries,
     };
   }
 
@@ -352,6 +450,7 @@ function normalizeRebateRow(row, monthInfo) {
     ? utilizedDays
     : Math.max(0, (validNumber(totalDays) ? totalDays : 30) - absentDays);
 
+  // monthly rebate is 0 because rebate is computed at semester level
   return {
     rollNo: roll.toUpperCase(),
     name: titleCase(name),
@@ -362,9 +461,33 @@ function normalizeRebateRow(row, monthInfo) {
     presentDays,
     absentDays,
     totalDays: validNumber(totalDays) ? totalDays : presentDays + absentDays,
-    rebateAmount: absentDays * RATE_PER_ABSENT_DAY,
+    rebateAmount: 0,
   };
 }
+
+/* ---------- Helpers for semester mapping ---------- */
+
+function parseMonthKey(monthKey) {
+  // expected e.g. 'jan2025' or 'feb2025'
+  if (!monthKey || typeof monthKey !== 'string') return null;
+  const m = monthKey.match(/^([a-z]{3})(\d{4})$/i);
+  if (!m) return null;
+  const abbr = m[1].toLowerCase();
+  const year = Number(m[2]);
+  const monthIndex = MONTH_ABBR_TO_INDEX.get(abbr);
+  if (monthIndex === undefined) return null;
+  return { year, monthIndex };
+}
+
+function isMonthWithinSemester(year, monthIndex, sem) {
+  const { start, end } = sem;
+  const startKey = start.year * 12 + start.monthIndex;
+  const endKey = end.year * 12 + end.monthIndex;
+  const mKey = year * 12 + monthIndex;
+  return mKey >= startKey && mKey <= endKey;
+}
+
+/* ---------- Remaining helper functions from original file ---------- */
 
 function parseStandardMenu(rows) {
   const schedule = {};
@@ -626,4 +749,3 @@ async function safeReaddir(dir) {
     return [];
   }
 }
-

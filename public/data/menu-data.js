@@ -1,5 +1,5 @@
 window.MESS_MENU_DATA = {
-  "generatedAt": "2025-11-17T20:10:45.294Z",
+  "generatedAt": "2025-11-18T10:12:39.740Z",
   "plans": [
     {
       "id": "nonveg-non-veg-menu-november",
