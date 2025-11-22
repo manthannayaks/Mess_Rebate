@@ -241,7 +241,12 @@
   // Register Service Worker for PWA
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/sw.js')
+      // Get base path for service worker (works for both GitHub Pages and Vercel)
+      const swPath = document.querySelector('base')?.href 
+        ? new URL('sw.js', document.querySelector('base').href).pathname 
+        : '/sw.js';
+      
+      navigator.serviceWorker.register(swPath)
         .then((registration) => {
           console.log('Service Worker registered:', registration.scope);
         })

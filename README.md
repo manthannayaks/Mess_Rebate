@@ -98,12 +98,59 @@ You can also trigger a manual deployment:
 - Select **Deploy to GitHub Pages** workflow
 - Click **Run workflow**
 
+## Deploying to Vercel
+
+This project is also configured for deployment to Vercel.
+
+### Option 1: Vercel CLI
+
+1. **Install Vercel CLI:**
+   ```bash
+   npm i -g vercel
+   ```
+
+2. **Deploy:**
+   ```bash
+   vercel
+   ```
+
+3. **For production:**
+   ```bash
+   vercel --prod
+   ```
+
+### Option 2: Vercel Dashboard
+
+1. **Connect your GitHub repository:**
+   - Go to [vercel.com](https://vercel.com)
+   - Click **Add New Project**
+   - Import your GitHub repository
+
+2. **Configure project:**
+   - **Framework Preset:** Other
+   - **Build Command:** `npm run build`
+   - **Output Directory:** `.` (root)
+   - **Install Command:** `npm install`
+
+3. **Deploy:**
+   - Click **Deploy**
+   - Vercel will automatically build and deploy your site
+
+### Vercel Configuration
+
+The project includes `vercel.json` with:
+- Build command configuration
+- Service worker headers
+- Cache control for static assets
+- Clean URLs enabled
+
 ### Important Notes
 
-- The `.nojekyll` file in the root prevents Jekyll processing
+- The `.nojekyll` file in the root prevents Jekyll processing (GitHub Pages)
 - A custom `404.html` page is included for better error handling
-- The build process runs automatically on every push, so your data stays up-to-date
-- All files are organized in the root directory for GitHub Pages compatibility
+- The build process runs automatically on every push
+- All files are organized in the root directory for compatibility with both platforms
+- Service worker is configured to work with both GitHub Pages and Vercel
 
 ## Notes & assumptions
 

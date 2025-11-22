@@ -2,7 +2,7 @@
   "name": "Campus Mess Companion",
   "short_name": "Mess Companion",
   "description": "Offline-ready dashboard for mess rebates, menus, and academic calendar",
-  "start_url": "/",
+  "start_url": "./",
   "display": "standalone",
   "background_color": "#f4f6fb",
   "theme_color": "#2563eb",

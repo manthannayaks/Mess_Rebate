@@ -1,22 +1,30 @@
 // Service Worker for Campus Mess Companion PWA
 const CACHE_NAME = 'mess-companion-v1';
+
+// Get base path (works for both GitHub Pages subdirectory and root)
+const getBasePath = () => {
+  return self.location.pathname.split('/sw.js')[0] || '';
+};
+
+const basePath = getBasePath();
+
 const urlsToCache = [
-  '/',
-  '/index.html',
-  '/mess-menu.html',
-  '/rebates.html',
-  '/academic-calendar.html',
-  '/login.html',
-  '/admin-dashboard.html',
-  '/404.html',
-  '/assets/styles/main.css',
-  '/assets/scripts/app-shell.js',
-  '/assets/scripts/home.js',
-  '/assets/scripts/menu.js',
-  '/assets/scripts/rebates.js',
-  '/assets/scripts/calendar.js',
-  '/assets/scripts/admin.js',
-  '/manifest.json'
+  basePath + '/',
+  basePath + '/index.html',
+  basePath + '/mess-menu.html',
+  basePath + '/rebates.html',
+  basePath + '/academic-calendar.html',
+  basePath + '/login.html',
+  basePath + '/admin-dashboard.html',
+  basePath + '/404.html',
+  basePath + '/assets/styles/main.css',
+  basePath + '/assets/scripts/app-shell.js',
+  basePath + '/assets/scripts/home.js',
+  basePath + '/assets/scripts/menu.js',
+  basePath + '/assets/scripts/rebates.js',
+  basePath + '/assets/scripts/calendar.js',
+  basePath + '/assets/scripts/admin.js',
+  basePath + '/manifest.json'
 ];
 
 // Install event - cache resources
@@ -71,7 +79,7 @@ self.addEventListener('fetch', (event) => {
       .catch(() => {
         // If both cache and network fail, return offline page for navigation requests
         if (event.request.mode === 'navigate') {
-          return caches.match('/404.html');
+          return caches.match(basePath + '/404.html');
         }
       })
   );
@@ -87,8 +95,8 @@ self.addEventListener('sync', (event) => {
 function showMealReminder() {
   return self.registration.showNotification('Meal Reminder', {
     body: 'Time for your meal!',
-    icon: '/assets/icons/icon-192x192.png',
-    badge: '/assets/icons/icon-72x72.png',
+    icon: basePath + '/assets/icons/icon-192x192.png',
+    badge: basePath + '/assets/icons/icon-72x72.png',
     tag: 'meal-reminder',
     requireInteraction: false
   });
