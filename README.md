@@ -1,6 +1,14 @@
 # Campus Mess Companion (Offline)
 
-Clean, institute-neutral dashboard that works entirely offline. Drop your latest mess bills, menus, and academic calendar files into `data__/`, regenerate the datasets, and open the static pages from the root directory. The app now ships three dedicated sections:
+Clean, institute-neutral dashboard that works entirely offline. Drop your latest mess bills, menus, and academic calendar files into `data__/`, regenerate the datasets, and open the static pages from the root directory.
+
+> 📚 **Documentation:**
+> - 🚀 [QUICK_START.md](./QUICK_START.md) - Get started in 3 steps
+> - 📖 [PROJECT_DOCUMENTATION.md](./PROJECT_DOCUMENTATION.md) - Complete technical documentation  
+> - 🔄 [CODE_FLOW.md](./CODE_FLOW.md) - How the code works from start to end
+> - 📂 [FOLDER_STRUCTURE.md](./FOLDER_STRUCTURE.md) - Visual folder organization
+
+The app now ships three dedicated sections:
 
 - **Landing page:** Minimal overview with links to every tool.
 - **Mess Rebate:** Fast roll-number lookup with totals and month-wise tables.
