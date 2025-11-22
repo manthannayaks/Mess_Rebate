@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Academic Calendar • Campus Mess Companion</title>
+  <meta name="theme-color" content="#2563eb" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="stylesheet" href="assets/styles/main.css" />
+  <script defer src="assets/scripts/app-shell.js"></script>
+  <script defer src="assets/scripts/calendar.js"></script>
+</head>
+
+<body class="page-calendar">
+
+  <!-- HEADER (same as other pages) -->
+  <header class="site-header">
+    <a class="brand" href="index.html">
+      <span aria-hidden="true">🍽️</span>
+      <span>Campus Mess Companion</span>
+    </a>
+    <div class="header-actions">
+      <div class="theme-toggle" data-theme-toggle role="group" aria-label="Theme">
+        <button type="button" data-theme-option="auto">Auto</button>
+        <button type="button" data-theme-option="light">Light</button>
+        <button type="button" data-theme-option="dark">Dark</button>
+      </div>
+      <button class="profile-btn" type="button" data-profile-toggle>
+        <span class="profile-initial" data-profile-initial>☺</span>
+        <span class="profile-label" data-profile-label>Profile</span>
+      </button>
+      <button class="nav-toggle" type="button" data-nav-toggle aria-label="Toggle navigation">
+        ☰
+      </button>
+    </div>
+    <nav class="site-nav">
+      <a href="index.html">Home</a>
+      <a href="mess-menu.html">Mess Menu</a>
+      <a href="rebates.html">Mess Rebate</a>
+      <a href="academic-calendar.html" class="is-active">Academic Calendar</a>
+    </nav>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="page-content">
+
+    <h1 class="page-title">Academic Calendar 2025–2026</h1>
+
+    <section class="card month-selector">
+      <label class="stack">
+        <span>Select Month</span>
+        <select id="monthSelect">
+          <option value="all">All Months</option>
+          <option value="july_2025">July 2025</option>
+          <option value="august_2025">August 2025</option>
+          <option value="september_2025">September 2025</option>
+          <option value="october_2025">October 2025</option>
+          <option value="november_2025">November 2025</option>
+          <option value="december_2025">December 2025</option>
+
+          <option value="january_2026">January 2026</option>
+          <option value="february_2026">February 2026</option>
+          <option value="march_2026">March 2026</option>
+          <option value="april_2026">April 2026</option>
+          <option value="may_2026">May 2026</option>
+          <option value="june_2026">June 2026</option>
+          <option value="july_2026">July 2026</option>
+        </select>
+      </label>
+    </section>
+
+    <section class="calendar-grid-wrap">
+      <div id="calendarContainer"></div>
+    </section>
+
+    <section class="card">
+      <div class="split">
+        <div>
+          <h3>Full Academic Calendar</h3>
+          <p class="meta">View the complete PDF document with all details</p>
+        </div>
+        <button class="btn primary" onclick="openPDF()">📄 Open PDF</button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <p>Update academic_events.json or replace the PDF to refresh the calendar.</p>
+  </footer>
+
+  <!-- PROFILE PANEL (same as other pages) -->
+  <div class="profile-panel hidden" data-profile-panel>
+    <div class="profile-panel__scrim" data-profile-close></div>
+    <div class="profile-panel__body" role="dialog" aria-modal="true">
+      <button class="profile-close" type="button" data-profile-close aria-label="Close profile">
+        <span>×</span>
+      </button>
+      
+      <div class="profile-header">
+        <div class="profile-avatar" data-profile-avatar>
+          <span data-profile-initial>☺</span>
+        </div>
+        <h2>Student Profile</h2>
+        <p class="profile-subtitle">Manage your personal information</p>
+      </div>
+
+      <form data-profile-form class="profile-form">
+        <div class="form-row">
+          <label class="form-field">
+            <span class="field-label">
+              <span class="field-icon">👤</span>
+              Full Name
+            </span>
+            <input type="text" name="name" placeholder="e.g. Priya Sharma" required />
+          </label>
+        </div>
+
+        <div class="form-row">
+          <label class="form-field">
+            <span class="field-label">
+              <span class="field-icon">🎓</span>
+              Roll Number
+            </span>
+            <input type="text" name="roll" placeholder="e.g. B25EE1001" required />
+          </label>
+        </div>
+
+        <div class="form-row form-row-split">
+          <label class="form-field">
+            <span class="field-label">
+              <span class="field-icon">🏠</span>
+              Hostel / Block
+            </span>
+            <input type="text" name="hostel" placeholder="e.g. B1 / Room 217" />
+          </label>
+          <label class="form-field">
+            <span class="field-label">
+              <span class="field-icon">📱</span>
+              Phone
+            </span>
+            <input type="tel" name="phone" placeholder="e.g. 9876543210" />
+          </label>
+        </div>
+
+        <button class="btn primary profile-save-btn" type="submit">
+          <span>💾 Save Profile</span>
+        </button>
+      </form>
+
+      <section class="profile-summary">
+        <div class="summary-header">
+          <h3>
+            <span class="summary-icon">📱</span>
+            QR Pass
+          </h3>
+          <p class="summary-subtitle">Your mess entry QR code</p>
+        </div>
+        <div class="profile-qr-preview" data-profile-qr-preview>
+          <div class="qr-placeholder">
+            <span class="qr-icon">📷</span>
+            <p>Upload a QR on the home page to see it here</p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+</body>
+</html>

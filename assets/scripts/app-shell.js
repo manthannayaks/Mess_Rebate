@@ -115,6 +115,18 @@
       profileInitial.textContent = '☺';
       profileLabel.textContent = 'Profile';
     }
+    
+    // Update profile avatar in panel
+    const profileAvatar = document.querySelector('[data-profile-avatar]');
+    const avatarInitial = document.querySelector('[data-profile-avatar] [data-profile-initial]');
+    if (avatarInitial) {
+      if (profileData?.name) {
+        const firstLetter = profileData.name.charAt(0).toUpperCase();
+        avatarInitial.textContent = firstLetter || '☺';
+      } else {
+        avatarInitial.textContent = '☺';
+      }
+    }
   }
 
   function renderProfileForm() {
@@ -128,8 +140,11 @@
   function renderProfileQr() {
     if (!profileQrPreview) return;
     if (!qrData?.image) {
-      profileQrPreview.innerHTML =
-        '<p class="meta">Upload a QR on the home page to see it here.</p>';
+      profileQrPreview.innerHTML = `
+        <div class="qr-placeholder">
+          <span class="qr-icon">📷</span>
+          <p>Upload a QR on the home page to see it here</p>
+        </div>`;
       return;
     }
     profileQrPreview.innerHTML = `
@@ -221,6 +236,56 @@
       month: 'short',
     });
     return `${formatter.format(startDate)} – ${formatter.format(endDate)}`;
+  }
+
+  // Register Service Worker for PWA
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js')
+        .then((registration) => {
+          console.log('Service Worker registered:', registration.scope);
+        })
+        .catch((error) => {
+          console.log('Service Worker registration failed:', error);
+        });
+    });
+  }
+
+  // Show install prompt for PWA
+  let deferredPrompt;
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    showInstallButton();
+  });
+
+  function showInstallButton() {
+    const installBanner = document.createElement('div');
+    installBanner.className = 'pwa-install-banner';
+    installBanner.innerHTML = `
+      <div class="pwa-install-content">
+        <span>📱 Install this app for quick access</span>
+        <button class="btn primary slim" id="pwa-install-btn">Install</button>
+        <button class="btn ghost slim" id="pwa-dismiss-btn">×</button>
+      </div>
+    `;
+    document.body.appendChild(installBanner);
+
+    document.getElementById('pwa-install-btn')?.addEventListener('click', async () => {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        if (outcome === 'accepted') {
+          console.log('User accepted the install prompt');
+        }
+        deferredPrompt = null;
+        installBanner.remove();
+      }
+    });
+
+    document.getElementById('pwa-dismiss-btn')?.addEventListener('click', () => {
+      installBanner.remove();
+    });
   }
 })();
 

@@ -1,6 +1,6 @@
 # Campus Mess Companion (Offline)
 
-Clean, institute-neutral dashboard that works entirely offline. Drop your latest mess bills, menus, and academic calendar files into `data__/`, regenerate the datasets, and open the static pages under `public/`. The app now ships three dedicated sections:
+Clean, institute-neutral dashboard that works entirely offline. Drop your latest mess bills, menus, and academic calendar files into `data__/`, regenerate the datasets, and open the static pages from the root directory. The app now ships three dedicated sections:
 
 - **Landing page:** Minimal overview with links to every tool.
 - **Mess Rebate:** Fast roll-number lookup with totals and month-wise tables.
@@ -23,15 +23,23 @@ data__/                         Raw offline files you maintain
   └─ Academic Calender/
        ├─ Academic_*.pdf        ← official calendar PDF
        └─ calendar-events.json  ← structured events for dashboard view
-public/
-  ├─ index.html                 ← landing page
-  ├─ mess-menu.html             ← menu page
-  ├─ rebates.html               ← rebate lookup
-  ├─ academic-calendar.html     ← calendar board
-  ├─ assets/                    ← CSS + JS + copied PDF
-  └─ data/                      ← auto-generated JS datasets
+index.html                      ← landing page (root)
+mess-menu.html                  ← menu page
+rebates.html                    ← rebate lookup
+academic-calendar.html          ← calendar board
+login.html                      ← admin login
+admin-dashboard.html            ← admin dashboard
+404.html                        ← custom 404 page
+assets/                         ← CSS + JS + copied PDF
+  ├─ styles/main.css
+  ├─ scripts/
+  └─ academic-calendar.pdf
+data/                           ← auto-generated JS datasets
+  ├─ rebates-data.js
+  ├─ menu-data.js
+  └─ academic_events.json
 scripts/
-  ├─ build-dataset.mjs          ← parses data__/ and rewrites public/data/*
+  ├─ build-dataset.mjs          ← parses data__/ and rewrites data/*
   └─ preview.mjs                ← lightweight static server (optional)
 ```
 
@@ -40,10 +48,10 @@ scripts/
 ```bash
 npm install          # only once
 npm run build:data   # parse CSVs + copy PDF + emit JS datasets
-npm run preview      # serve ./public at http://localhost:4173
+npm run preview      # serve at http://localhost:4173
 ```
 
-Prefer to double-click `public/index.html`? That works offline too—just remember to rebuild data whenever the CSV/PDF files change.
+Prefer to double-click `index.html`? That works offline too—just remember to rebuild data whenever the CSV/PDF files change.
 
 ## Updating data
 
@@ -52,9 +60,50 @@ Prefer to double-click `public/index.html`? That works offline too—just rememb
 3. **Academic calendar:**
    - Copy the PDF into `data__/Academic Calender/`.
    - Update `calendar-events.json` to keep the on-page grid in sync (see the existing file for the schema).
-4. Run `npm run build:data` to refresh `public/data/*.js` and copy the PDF into `public/assets/`.
+4. Run `npm run build:data` to refresh `data/*.js` and copy the PDF into `assets/`.
 
-The resulting `public/` folder is the only thing you need to share or deploy—no databases, APIs, or internet access required.
+The root directory contains all files needed for deployment—no databases, APIs, or internet access required.
+
+## Deploying to GitHub Pages
+
+This project is configured for automatic deployment to GitHub Pages using GitHub Actions.
+
+### Initial Setup
+
+1. **Push your code to GitHub:**
+   ```bash
+   git init
+   git add .
+   git commit -m "Initial commit"
+   git branch -M main
+   git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git
+   git push -u origin main
+   ```
+
+2. **Enable GitHub Pages:**
+   - Go to your repository on GitHub
+   - Navigate to **Settings** → **Pages**
+   - Under **Source**, select **GitHub Actions**
+   - Save the settings
+
+3. **The deployment will happen automatically:**
+   - Every push to `main` or `master` branch triggers a build and deployment
+   - The workflow builds the data files and deploys from the root directory
+   - Your site will be available at `https://YOUR_USERNAME.github.io/YOUR_REPO_NAME/`
+
+### Manual Deployment
+
+You can also trigger a manual deployment:
+- Go to **Actions** tab in your repository
+- Select **Deploy to GitHub Pages** workflow
+- Click **Run workflow**
+
+### Important Notes
+
+- The `.nojekyll` file in the root prevents Jekyll processing
+- A custom `404.html` page is included for better error handling
+- The build process runs automatically on every push, so your data stays up-to-date
+- All files are organized in the root directory for GitHub Pages compatibility
 
 ## Notes & assumptions
 

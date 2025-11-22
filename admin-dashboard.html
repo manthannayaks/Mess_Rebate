@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin Dashboard • Campus Mess Companion</title>
+  <link rel="stylesheet" href="assets/styles/main.css" />
+  <script src="assets/scripts/admin.js" defer></script>
+</head>
+
+<body class="page-admin">
+  <header class="site-header admin-header">
+    <div class="brand">
+      <span aria-hidden="true">🛠️</span>
+      <span>Admin Dashboard</span>
+    </div>
+    <div class="header-actions">
+      <span class="admin-status">Logged in as Admin</span>
+      <button class="btn ghost" id="logoutBtn">Logout</button>
+    </div>
+  </header>
+
+  <main class="page-content admin-content">
+    <section class="admin-welcome-card">
+      <div class="welcome-header">
+        <h1>Welcome, Administrator</h1>
+        <p class="lead">Manage mess data, menus, and academic calendar from this dashboard.</p>
+      </div>
+      <div class="admin-stats">
+        <div class="stat-card">
+          <div class="stat-icon">📋</div>
+          <div class="stat-info">
+            <h3>Mess Menu</h3>
+            <p>Manage daily meal schedules</p>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">💰</div>
+          <div class="stat-info">
+            <h3>Rebate Data</h3>
+            <p>Track student rebates</p>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">📅</div>
+          <div class="stat-info">
+            <h3>Calendar</h3>
+            <p>Update academic events</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="admin-actions">
+      <div class="action-grid">
+        <button class="action-card" data-admin-action="menu">
+          <div class="action-icon">📋</div>
+          <h3>Mess Menu</h3>
+          <p>Edit and manage mess menu data</p>
+          <span class="action-arrow">→</span>
+        </button>
+        <button class="action-card" data-admin-action="rebates">
+          <div class="action-icon">💰</div>
+          <h3>Rebate Data</h3>
+          <p>Manage student rebate information</p>
+          <span class="action-arrow">→</span>
+        </button>
+        <button class="action-card" data-admin-action="calendar">
+          <div class="action-icon">📅</div>
+          <h3>Academic Calendar</h3>
+          <p>Update calendar events and holidays</p>
+          <span class="action-arrow">→</span>
+        </button>
+      </div>
+    </section>
+
+    <section class="card admin-editor hidden" id="admin-menu-editor">
+      <div class="editor-header">
+        <h2>Mess Menu Editor</h2>
+        <button class="btn ghost slim" data-close-editor>Close</button>
+      </div>
+      <div class="editor-content">
+        <p class="meta">Edit the mess menu data below. Changes are saved locally.</p>
+        <textarea id="menuEditor" rows="16" class="editor-textarea" placeholder="Menu data will appear here..."></textarea>
+        <div class="editor-actions">
+          <button class="btn primary" id="saveMenuBtn">Save Changes</button>
+          <button class="btn ghost" id="resetMenuBtn">Reset</button>
+        </div>
+      </div>
+    </section>
+      
+    <section class="card admin-editor hidden" id="admin-rebate-editor">
+      <div class="editor-header">
+        <h2>Rebate Data Editor</h2>
+        <button class="btn ghost slim" data-close-editor>Close</button>
+      </div>
+      <div class="editor-content">
+        <p class="meta">Edit the rebate data below. Changes are saved locally.</p>
+        <textarea id="rebateEditor" rows="16" class="editor-textarea" placeholder="Rebate data will appear here..."></textarea>
+        <div class="editor-actions">
+          <button class="btn primary" id="saveRebateBtn">Save Changes</button>
+          <button class="btn ghost" id="resetRebateBtn">Reset</button>
+        </div>
+      </div>
+    </section>
+      
+    <section class="card admin-editor hidden" id="admin-calendar-editor">
+      <div class="editor-header">
+        <h2>Academic Calendar Editor</h2>
+        <button class="btn ghost slim" data-close-editor>Close</button>
+      </div>
+      <div class="editor-content">
+        <p class="meta">Edit the academic calendar data below. Changes are saved locally.</p>
+        <textarea id="calendarEditor" rows="16" class="editor-textarea" placeholder="Calendar data will appear here..."></textarea>
+        <div class="editor-actions">
+          <button class="btn primary" id="saveCalendarBtn">Save Changes</button>
+          <button class="btn ghost" id="resetCalendarBtn">Reset</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Admin Dashboard • Campus Mess Companion</p>
+  </footer>
+</body>
+</html>

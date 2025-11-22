@@ -1,0 +1,85 @@
+{
+  "name": "Campus Mess Companion",
+  "short_name": "Mess Companion",
+  "description": "Offline-ready dashboard for mess rebates, menus, and academic calendar",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f4f6fb",
+  "theme_color": "#2563eb",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "assets/icons/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/icons/icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/icons/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/icons/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/icons/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/icons/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["education", "food", "productivity"],
+  "shortcuts": [
+    {
+      "name": "Mess Menu",
+      "short_name": "Menu",
+      "description": "View today's mess menu",
+      "url": "/mess-menu.html",
+      "icons": [{ "src": "assets/icons/icon-96x96.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Rebates",
+      "short_name": "Rebates",
+      "description": "Check rebate status",
+      "url": "/rebates.html",
+      "icons": [{ "src": "assets/icons/icon-96x96.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Calendar",
+      "short_name": "Calendar",
+      "description": "View academic calendar",
+      "url": "/academic-calendar.html",
+      "icons": [{ "src": "assets/icons/icon-96x96.png", "sizes": "96x96" }]
+    }
+  ]
+}
+

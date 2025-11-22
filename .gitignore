@@ -1,3 +1,7 @@
 .vercel
-data__
 node_modules
+public/
+
+# Note: data__ folder should be committed for GitHub Pages deployment
+# If you want to keep data__ private, consider using GitHub Secrets
+# or a separate private repository for data files

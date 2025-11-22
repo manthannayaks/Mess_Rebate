@@ -7,7 +7,7 @@ const BILL_DIR = path.join(RAW_DATA_DIR, 'Mess Bill');
 const MENU_DIR = path.join(RAW_DATA_DIR, 'Menu');
 const CALENDAR_DIR = path.join(RAW_DATA_DIR, 'Academic Calender');
 
-const PUBLIC_DIR = path.resolve(ROOT, 'public');
+const PUBLIC_DIR = path.resolve(ROOT);
 const DATA_DIR = path.join(PUBLIC_DIR, 'data');
 const ASSET_DIR = path.join(PUBLIC_DIR, 'assets');
 

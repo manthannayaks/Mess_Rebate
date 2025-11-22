@@ -3,6 +3,7 @@
   "version": "2.0.0",
   "description": "Offline mess management companion (rebates, menus, calendar).",
   "scripts": {
+    "build": "npm run build:data",
     "build:data": "node scripts/build-dataset.mjs",
     "preview": "node scripts/preview.mjs",
     "start": "node scripts/preview.mjs"

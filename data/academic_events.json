@@ -1,0 +1,59 @@
+{
+  "july_2025": {
+    "name": "July 2025",
+    "events": [
+      { "date": "01 Jul", "title": "Campus Reopens" },
+      { "date": "05 Jul", "title": "Registration for Monsoon Semester" }
+    ]
+  },
+  "august_2025": {
+    "name": "August 2025",
+    "events": [
+      { "date": "15 Aug", "title": "Independence Day Holiday" }
+    ]
+  },
+  "september_2025": {
+    "name": "September 2025",
+    "events": []
+  },
+  "october_2025": {
+    "name": "October 2025",
+    "events": []
+  },
+  "november_2025": {
+    "name": "November 2025",
+    "events": []
+  },
+  "december_2025": {
+    "name": "December 2025",
+    "events": []
+  },
+  "january_2026": {
+    "name": "January 2026",
+    "events": []
+  },
+  "february_2026": {
+    "name": "February 2026",
+    "events": []
+  },
+  "march_2026": {
+    "name": "March 2026",
+    "events": []
+  },
+  "april_2026": {
+    "name": "April 2026",
+    "events": []
+  },
+  "may_2026": {
+    "name": "May 2026",
+    "events": []
+  },
+  "june_2026": {
+    "name": "June 2026",
+    "events": []
+  },
+  "july_2026": {
+    "name": "July 2026",
+    "events": []
+  }
+}

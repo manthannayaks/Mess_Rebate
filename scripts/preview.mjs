@@ -4,7 +4,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const PORT = Number(process.env.PORT) || 4173;
-const ROOT = path.resolve(fileURLToPath(new URL('..', import.meta.url)), 'public');
+const ROOT = path.resolve(fileURLToPath(new URL('..', import.meta.url)));
 
 const MIME_MAP = {
   '.html': 'text/html; charset=utf-8',
@@ -38,7 +38,7 @@ const server = http.createServer(async (req, res) => {
 });
 
 server.listen(PORT, () => {
-  console.log(`Serving public/ at http://localhost:${PORT}`);
+  console.log(`Serving at http://localhost:${PORT}`);
 });
 
 async function safeStat(filePath) {
