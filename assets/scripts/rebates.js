@@ -195,7 +195,7 @@
   // Handle clear button click
   nodes.clearBtn?.addEventListener('click', () => {
     nodes.input.value = '';
-    showEmpty('Type a roll number to load the student's mess rebate summary.');
+    showEmpty("Type a roll number to load the student's mess rebate summary.");
     nodes.input.focus();
   });
 
@@ -218,7 +218,7 @@
   });
 
   // Show initial empty state
-  showEmpty('Type a roll number to load the student's mess rebate summary.');
+  showEmpty("Type a roll number to load the student's mess rebate summary.");
 
   // ==========================================================================
   // SEARCH FUNCTION
@@ -233,7 +233,7 @@
     
     // Show empty state if no input
     if (!sanitized) {
-      showEmpty('Type a roll number to load the student's mess rebate summary.');
+      showEmpty("Type a roll number to load the student's mess rebate summary.");
       return;
     }
     
