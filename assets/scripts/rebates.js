@@ -1,15 +1,49 @@
+/**
+ * ============================================================================
+ * MESS REBATE LOOKUP PAGE SCRIPT
+ * ============================================================================
+ * 
+ * This script handles the mess rebate lookup page functionality:
+ * - Allows searching for students by roll number
+ * - Displays rebate calculations per semester
+ * - Shows monthly attendance records
+ * - Manages recent search history
+ * 
+ * Data Source: window.MESS_REBATE_DATA (loaded from data/rebates-data.js)
+ * ============================================================================
+ */
+
 (() => {
+  // ==========================================================================
+  // DATA LOADING & INITIALIZATION
+  // ==========================================================================
+  
+  // Load rebate data from global variable (set by rebates-data.js)
   const data = window.MESS_REBATE_DATA || { students: {}, months: [] };
+  
+  // Convert students object to Map for efficient lookup
   const students = new Map(Object.entries(data.students || {}));
+  
+  // Get rebate rate per absent day
   const rate = data.ratePerAbsentDay || 0;
 
+  // Currency formatter for Indian Rupees
   const formatter = new Intl.NumberFormat('en-IN', {
     style: 'currency',
     currency: 'INR',
     maximumFractionDigits: 0,
   });
 
-  // ---------- SEMESTER CONFIG (mirror build-dataset.mjs) ----------
+  // ==========================================================================
+  // SEMESTER CONFIGURATION
+  // ==========================================================================
+  // NOTE: This must match the configuration in scripts/build-dataset.mjs
+  // Each semester defines:
+  // - key: Unique identifier
+  // - name: Display name
+  // - start/end: Year and month (monthIndex: 0=Jan, 11=Dec)
+  // - paid: Amount paid for this semester (0 if not paid yet)
+  // ==========================================================================
   const SEMESTERS = [
     {
       key: '2024-25-sem2',
@@ -34,11 +68,21 @@
     },
   ];
 
+  // ==========================================================================
+  // MONTH UTILITIES
+  // ==========================================================================
+  
+  // Map of month abbreviations to month indices (0-11)
   const MONTH_ABBR_TO_INDEX = {
     jan: 0, feb: 1, mar: 2, apr: 3, may: 4, jun: 5,
     jul: 6, aug: 7, sep: 8, oct: 9, nov: 10, dec: 11,
   };
 
+  /**
+   * Parses a month key string (e.g., "jan2025") into year and month index
+   * @param {string} key - Month key in format "mmmYYYY" (e.g., "jan2025")
+   * @returns {Object|null} Object with year and monthIndex, or null if invalid
+   */
   function parseMonthKey(key) {
     if (!key) return null;
     const m = key.match(/^([a-z]{3})(\d{4})$/i);
@@ -46,45 +90,70 @@
     return { monthIndex: MONTH_ABBR_TO_INDEX[m[1].toLowerCase()], year: Number(m[2]) };
   }
 
+  /**
+   * Checks if a month falls within a semester's date range
+   * @param {number} year - Year of the month
+   * @param {number} monthIndex - Month index (0-11)
+   * @param {Object} sem - Semester configuration object
+   * @returns {boolean} True if month is within semester range
+   */
   function monthWithinSem(year, monthIndex, sem) {
+    // Convert dates to comparable numeric keys (year * 12 + month)
     const sKey = sem.start.year * 12 + sem.start.monthIndex;
     const eKey = sem.end.year * 12 + sem.end.monthIndex;
     const mKey = year * 12 + monthIndex;
     return mKey >= sKey && mKey <= eKey;
   }
 
+  // ==========================================================================
+  // DOM ELEMENT REFERENCES
+  // ==========================================================================
+  
   const nodes = {
-    form: document.querySelector('[data-rebate-form]'),
-    input: document.querySelector('[data-rebate-form] input[name="roll"]'),
-    clearBtn: document.querySelector('[data-rebate-search] [data-action="clear"]'),
-    stats: document.querySelector('[data-rebate-stats]'),
-    resultCard: document.querySelector('[data-rebate-result]'),
-    emptyCard: document.querySelector('[data-rebate-empty]'),
-    name: document.querySelector('[data-student-name]'),
-    roll: document.querySelector('[data-student-roll]'),
-    hostel: document.querySelector('[data-student-hostel]'),
-    contact: document.querySelector('[data-student-contact]'),
-    totalRebate: document.querySelector('[data-total-rebate]'),
-    totalAbsent: document.querySelector('[data-total-absent]'),
-    totalMonths: document.querySelector('[data-total-months]'),
-    rateValue: document.querySelector('[data-rate-value]'),
-    tableBody: document.querySelector('[data-records-body]'),
-    generated: document.querySelector('[data-rebate-generated]'),
-    months: document.querySelector('[data-rebate-months]'),
-    statStudents: document.querySelector('[data-stat-students]'),
-    statRate: document.querySelector('[data-stat-rate]'),
-    statMonths: document.querySelector('[data-stat-months]'),
-    recentList: document.querySelector('[data-recent-list]'),
-    recentClear: document.querySelector('[data-recent-clear]'),
+    form: document.querySelector('[data-rebate-form]'), // Search form
+    input: document.querySelector('[data-rebate-form] input[name="roll"]'), // Roll number input
+    clearBtn: document.querySelector('[data-rebate-search] [data-action="clear"]'), // Clear button
+    stats: document.querySelector('[data-rebate-stats]'), // Statistics display
+    resultCard: document.querySelector('[data-rebate-result]'), // Student result card
+    emptyCard: document.querySelector('[data-rebate-empty]'), // Empty state message
+    name: document.querySelector('[data-student-name]'), // Student name display
+    roll: document.querySelector('[data-student-roll]'), // Roll number display
+    hostel: document.querySelector('[data-student-hostel]'), // Hostel display
+    contact: document.querySelector('[data-student-contact]'), // Contact display
+    totalRebate: document.querySelector('[data-total-rebate]'), // Total rebate amount
+    totalAbsent: document.querySelector('[data-total-absent]'), // Total absent days
+    totalMonths: document.querySelector('[data-total-months]'), // Total months count
+    rateValue: document.querySelector('[data-rate-value]'), // Rate per day display
+    tableBody: document.querySelector('[data-records-body]'), // Monthly records table
+    generated: document.querySelector('[data-rebate-generated]'), // Data generation timestamp
+    months: document.querySelector('[data-rebate-months]'), // Months count display
+    statStudents: document.querySelector('[data-stat-students]'), // Total students stat
+    statRate: document.querySelector('[data-stat-rate]'), // Rate stat
+    statMonths: document.querySelector('[data-stat-months]'), // Months stat
+    recentList: document.querySelector('[data-recent-list]'), // Recent searches list
+    recentClear: document.querySelector('[data-recent-clear]'), // Clear recent button
   };
 
-  const recentStorageKey = 'mess-rebate-recent';
-  let recentLookups = loadRecent();
+  // ==========================================================================
+  // RECENT SEARCHES MANAGEMENT
+  // ==========================================================================
+  
+  const recentStorageKey = 'mess-rebate-recent'; // localStorage key for recent searches
+  let recentLookups = loadRecent(); // Load recent searches from localStorage
 
+  // ==========================================================================
+  // INITIAL PAGE SETUP
+  // ==========================================================================
+  
+  // Display rebate rate
   nodes.rateValue.textContent = rate ? formatter.format(rate) + '/day' : '—';
+  
+  // Display overall statistics
   nodes.stats.textContent = `${students.size.toLocaleString('en-IN')} students • ${
     data.months.length
   } months • ${formatter.format(rate || 0)}/day rebate`;
+  
+  // Display data generation timestamp
   nodes.generated.textContent = data.generatedAt
     ? new Intl.DateTimeFormat('en-IN', {
       day: 'numeric',
@@ -94,35 +163,50 @@
       minute: '2-digit',
     }).format(new Date(data.generatedAt))
     : '—';
+  
+  // Display month count
   nodes.months.textContent = data.months.length || '—';
+  
+  // Update stat displays if they exist
   nodes.statStudents && (nodes.statStudents.textContent = students.size.toLocaleString('en-IN'));
   nodes.statRate && (nodes.statRate.textContent = formatter.format(rate || 0));
+  
+  // Render month badges and recent searches
   renderMonthBadges();
   renderRecent();
 
+  // ==========================================================================
+  // EVENT LISTENERS
+  // ==========================================================================
+  
+  // Handle form submission (search by roll number)
   nodes.form?.addEventListener('submit', (event) => {
     event.preventDefault();
     search(nodes.input.value);
   });
 
+  // Handle real-time input (search as user types)
   nodes.input?.addEventListener('input', (event) => {
-    const value = event.target.value.toUpperCase();
+    const value = event.target.value.toUpperCase(); // Convert to uppercase
     event.target.value = value;
     search(value);
   });
 
+  // Handle clear button click
   nodes.clearBtn?.addEventListener('click', () => {
     nodes.input.value = '';
-    showEmpty('Type a roll number to load the student’s mess rebate summary.');
+    showEmpty('Type a roll number to load the student's mess rebate summary.');
     nodes.input.focus();
   });
 
+  // Handle clear recent searches
   nodes.recentClear?.addEventListener('click', () => {
     recentLookups = [];
     persistRecent();
     renderRecent();
   });
 
+  // Handle click on recent search item
   nodes.recentList?.addEventListener('click', (event) => {
     const button = event.target.closest('[data-roll]');
     if (!button) return;
@@ -133,32 +217,60 @@
     nodes.input.focus();
   });
 
-  showEmpty('Type a roll number to load the student’s mess rebate summary.');
+  // Show initial empty state
+  showEmpty('Type a roll number to load the student's mess rebate summary.');
 
+  // ==========================================================================
+  // SEARCH FUNCTION
+  // ==========================================================================
+  
+  /**
+   * Searches for a student by roll number and displays their rebate information
+   * @param {string} roll - Roll number to search for
+   */
   function search(roll) {
     const sanitized = roll.trim();
+    
+    // Show empty state if no input
     if (!sanitized) {
-      showEmpty('Type a roll number to load the student’s mess rebate summary.');
+      showEmpty('Type a roll number to load the student's mess rebate summary.');
       return;
     }
+    
+    // Look up student in the Map
     const student = students.get(sanitized);
+    
+    // Show error if student not found
     if (!student) {
       showEmpty(`No data found for ${sanitized}.`);
       return;
     }
+    
+    // Render student information
     renderStudent(student);
   }
 
+  // ==========================================================================
+  // STUDENT RENDERING FUNCTIONS
+  // ==========================================================================
+  
+  /**
+   * Renders a student's rebate information including monthly records and semester summaries
+   * @param {Object} student - Student data object from the dataset
+   */
   function renderStudent(student) {
+    // Show result card and hide empty state
     nodes.resultCard.classList.remove('hidden');
     nodes.emptyCard.classList.add('hidden');
 
+    // Display basic student information
     nodes.name.textContent = student.name || 'Unknown student';
     nodes.hostel.textContent = student.hostel || '—';
     nodes.roll.textContent = student.rollNo;
     nodes.contact.textContent = student.contact || '—';
 
-    // Render monthly table (rebate column shows '—' because rebate is semester-level)
+    // Render monthly attendance table
+    // Note: Monthly rebate column shows '—' because rebate is calculated at semester level
     nodes.tableBody.innerHTML = student.records
       .map(
         (record) => `
@@ -171,18 +283,18 @@
       )
       .join('');
 
-    // Use semester summaries available in dataset if present; otherwise compute client-side
+    // Get semester summaries (use pre-computed if available, otherwise compute)
     const semesterSummaries = (student.semesters && Array.isArray(student.semesters))
-      ? student.semesters.map((s) => ({ ...s })) // shallow copy
-      : computeSemestersClient(student);
+      ? student.semesters.map((s) => ({ ...s })) // Use pre-computed from dataset
+      : computeSemestersClient(student); // Compute client-side if not available
 
-    // Render semester summary block (create if missing)
+    // Find or create semester summary container
     let semContainer = nodes.resultCard.querySelector('[data-semester-summary]');
     if (!semContainer) {
       semContainer = document.createElement('div');
       semContainer.setAttribute('data-semester-summary', '');
       semContainer.className = 'semester-summary';
-      // place it after the records table
+      // Place it after the records table
       const tableEl = nodes.tableBody && nodes.tableBody.closest('table');
       if (tableEl && tableEl.parentElement) {
         tableEl.parentElement.appendChild(semContainer);
@@ -191,9 +303,10 @@
       }
     }
 
-    // Build semester HTML (Option B: detailed breakdown)
+    // Render semester summaries with detailed breakdown
     semContainer.innerHTML = semesterSummaries
       .map((s) => {
+        // Unpaid semester (no data or not paid)
         if (!s.isPaid) {
           return `
           <div class="sem-card sem-unpaid">
@@ -201,6 +314,7 @@
             <p class="dimmed">No data for this semester → treated as <strong>Not Paid</strong>. Rebate: ₹0</p>
           </div>`;
         }
+        // Paid semester with detailed calculation
         return `
         <div class="sem-card">
           <h3>${s.name}</h3>
@@ -215,20 +329,31 @@
       })
       .join('');
 
-    // Total rebate = sum of semester rebates
+    // Calculate and display total rebate (sum of all semester rebates)
     const totalRebate = semesterSummaries.reduce((sum, s) => sum + (s.rebate || 0), 0);
     nodes.totalRebate.textContent = formatter.format(totalRebate);
 
+    // Display totals
     nodes.totalAbsent.textContent = student.totals.absentDays ?? 0;
     nodes.totalMonths.textContent = student.totals.monthsCount ?? 0;
 
+    // Remember this lookup in recent searches
     rememberLookup(student);
   }
 
+  /**
+   * Computes semester summaries client-side if not pre-computed in dataset
+   * Calculates rebate based on present days and semester payment status
+   * 
+   * @param {Object} student - Student data object
+   * @returns {Array} Array of semester summary objects
+   */
   function computeSemestersClient(student) {
     const summaries = [];
+    
+    // Process each semester
     for (const sem of SEMESTERS) {
-      // determine if semester has any global months by checking student.records months
+      // Check if student has any months within this semester
       const studentHasAnyMonth = student.records.some((rec) => {
         const parsed = parseMonthKey(rec.monthKey);
         if (!parsed) return false;
@@ -236,8 +361,12 @@
       });
 
       const semConfiguredPaidAmount = sem.paid || 0;
+      // Semester is considered paid only if:
+      // 1. Payment amount > 0 AND
+      // 2. Student has at least one month of data in this semester
       const semConsideredPaid = semConfiguredPaidAmount > 0 && studentHasAnyMonth;
 
+      // If not paid, return zero rebate
       if (!semConsideredPaid) {
         summaries.push({
           key: sem.key,
@@ -251,6 +380,7 @@
         continue;
       }
 
+      // Calculate total present days for this semester
       let semPresentDays = 0;
       for (const rec of student.records) {
         const parsed = parseMonthKey(rec.monthKey);
@@ -260,6 +390,9 @@
         }
       }
 
+      // Calculate used amount and rebate
+      // Used amount = present days × rate per day
+      // Rebate = amount paid - used amount (minimum 0)
       const usedAmount = semPresentDays * rate;
       const rebate = Math.max(0, semConfiguredPaidAmount - usedAmount);
 
@@ -276,12 +409,24 @@
     return summaries;
   }
 
+  // ==========================================================================
+  // UI HELPER FUNCTIONS
+  // ==========================================================================
+  
+  /**
+   * Shows empty state message
+   * @param {string} message - Message to display
+   */
   function showEmpty(message) {
     nodes.resultCard.classList.add('hidden');
     nodes.emptyCard.classList.remove('hidden');
     nodes.emptyCard.textContent = message;
   }
 
+  /**
+   * Renders month badges showing available months in the dataset
+   * Displays the latest 6 months with a "+X more" indicator if needed
+   */
   function renderMonthBadges() {
     if (!nodes.statMonths) return;
     const months = data.months || [];
@@ -289,7 +434,7 @@
       nodes.statMonths.innerHTML = '<span class="meta">No months loaded yet.</span>';
       return;
     }
-    const latest = months.slice(-6);
+    const latest = months.slice(-6); // Get last 6 months
     const extra = months.length - latest.length;
     const badges = latest
       .map(
@@ -302,6 +447,14 @@
     nodes.statMonths.innerHTML = badges + extraBadge;
   }
 
+  // ==========================================================================
+  // RECENT SEARCHES FUNCTIONS
+  // ==========================================================================
+  
+  /**
+   * Loads recent searches from localStorage
+   * @returns {Array} Array of recent search entries
+   */
   function loadRecent() {
     try {
       const stored = localStorage.getItem(recentStorageKey);
@@ -313,6 +466,9 @@
     }
   }
 
+  /**
+   * Saves recent searches to localStorage
+   */
   function persistRecent() {
     try {
       localStorage.setItem(recentStorageKey, JSON.stringify(recentLookups));
@@ -321,18 +477,27 @@
     }
   }
 
+  /**
+   * Adds a student lookup to recent searches
+   * Keeps only the 5 most recent searches
+   * @param {Object} student - Student data object
+   */
   function rememberLookup(student) {
     const entry = {
       roll: student.rollNo,
       name: student.name,
       hostel: student.hostel,
     };
+    // Add to beginning, remove duplicates, keep only 5
     recentLookups = [entry, ...recentLookups.filter((item) => item.roll !== entry.roll)];
     recentLookups = recentLookups.slice(0, 5);
     persistRecent();
     renderRecent();
   }
 
+  /**
+   * Renders the recent searches list
+   */
   function renderRecent() {
     if (!nodes.recentList) return;
     if (!recentLookups.length) {
