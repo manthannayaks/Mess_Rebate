@@ -3,10 +3,10 @@
 Clean, institute-neutral dashboard that works entirely offline. Drop your latest mess bills, menus, and academic calendar files into `data__/`, regenerate the datasets, and open the static pages from the root directory.
 
 > 📚 **Documentation:**
-> - 🚀 [QUICK_START.md](./QUICK_START.md) - Get started in 3 steps
-> - 📖 [PROJECT_DOCUMENTATION.md](./PROJECT_DOCUMENTATION.md) - Complete technical documentation  
-> - 🔄 [CODE_FLOW.md](./CODE_FLOW.md) - How the code works from start to end
-> - 📂 [FOLDER_STRUCTURE.md](./FOLDER_STRUCTURE.md) - Visual folder organization
+> - 🚀 [QUICK_START.md](./Explain/QUICK_START.md) - Get started in 3 steps
+> - 📖 [PROJECT_DOCUMENTATION.md](./Explain/PROJECT_DOCUMENTATION.md) - Complete technical documentation  
+> - 🔄 [CODE_FLOW.md](./Explain/CODE_FLOW.md) - How the code works from start to end
+> - 📂 [FOLDER_STRUCTURE.md](./Explain/FOLDER_STRUCTURE.md) - Visual folder organization
 
 The app now ships three dedicated sections:
 
