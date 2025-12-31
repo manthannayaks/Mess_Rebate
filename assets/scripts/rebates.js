@@ -91,6 +91,22 @@
   }
 
   /**
+   * Gets the rate per day for a given mess type and month
+   * @param {string} messType - 'veg' or 'nonveg'
+   * @param {number} year - Year
+   * @param {number} monthIndex - Month index (0-11)
+   * @returns {number} Rate per day
+   */
+  function getRatePerDay(messType, year, monthIndex) {
+    // From November 2025 onwards, new rates
+    if (year > 2025 || (year === 2025 && monthIndex >= 10)) { // November is 10
+      return messType === 'veg' ? 179 : 189;
+    }
+    // Before, assume 140 for both
+    return 140;
+  }
+
+  /**
    * Checks if a month falls within a semester's date range
    * @param {number} year - Year of the month
    * @param {number} monthIndex - Month index (0-11)
@@ -120,10 +136,10 @@
     roll: document.querySelector('[data-student-roll]'), // Roll number display
     hostel: document.querySelector('[data-student-hostel]'), // Hostel display
     contact: document.querySelector('[data-student-contact]'), // Contact display
+    mess: document.querySelector('[data-student-mess]'), // Mess type display
     totalRebate: document.querySelector('[data-total-rebate]'), // Total rebate amount
     totalAbsent: document.querySelector('[data-total-absent]'), // Total absent days
     totalMonths: document.querySelector('[data-total-months]'), // Total months count
-    rateValue: document.querySelector('[data-rate-value]'), // Rate per day display
     tableBody: document.querySelector('[data-records-body]'), // Monthly records table
     generated: document.querySelector('[data-rebate-generated]'), // Data generation timestamp
     months: document.querySelector('[data-rebate-months]'), // Months count display
@@ -145,13 +161,15 @@
   // INITIAL PAGE SETUP
   // ==========================================================================
   
-  // Display rebate rate
-  nodes.rateValue.textContent = rate ? formatter.format(rate) + '/day' : '—';
+  // Display rebate rate - rates vary by month and mess type
+  // From November 2025: ₹179/day (veg), ₹189/day (non-veg)
+  // Before November 2025: ₹140/day (both)
+  const rateDisplay = '₹179-189/day (varies by month & mess type)';
   
   // Display overall statistics
   nodes.stats.textContent = `${students.size.toLocaleString('en-IN')} students • ${
     data.months.length
-  } months • ${formatter.format(rate || 0)}/day rebate`;
+  } months • Rates vary by month and mess type`;
   
   // Display data generation timestamp
   nodes.generated.textContent = data.generatedAt
@@ -169,7 +187,7 @@
   
   // Update stat displays if they exist
   nodes.statStudents && (nodes.statStudents.textContent = students.size.toLocaleString('en-IN'));
-  nodes.statRate && (nodes.statRate.textContent = formatter.format(rate || 0));
+  nodes.statRate && (nodes.statRate.textContent = rateDisplay);
   
   // Render month badges and recent searches
   renderMonthBadges();
@@ -255,6 +273,22 @@
   // ==========================================================================
   
   /**
+   * Gets the primary mess type from student records
+   * @param {Array} records - Student monthly records
+   * @returns {string} Primary mess type or null
+   */
+  function getPrimaryMessType(records) {
+    const types = records.map(r => r.messType).filter(Boolean);
+    if (!types.length) return null;
+    // Return the most common type
+    const counts = types.reduce((acc, type) => {
+      acc[type] = (acc[type] || 0) + 1;
+      return acc;
+    }, {});
+    return Object.keys(counts).reduce((a, b) => counts[a] > counts[b] ? a : b);
+  }
+  
+  /**
    * Renders a student's rebate information including monthly records and semester summaries
    * @param {Object} student - Student data object from the dataset
    */
@@ -268,18 +302,67 @@
     nodes.hostel.textContent = student.hostel || '—';
     nodes.roll.textContent = student.rollNo;
     nodes.contact.textContent = student.contact || '—';
+    
+    // Get latest month record to show mess choice
+    const latestRecord = student.records.length > 0 
+      ? student.records[student.records.length - 1] 
+      : null;
+    
+    // Display mess type with mess choice for latest month
+    const primaryMessType = getPrimaryMessType(student.records) || '—';
+    let messDisplay = primaryMessType;
+    if (latestRecord && latestRecord.messNumber) {
+      const messChoice = latestRecord.messNumber === 1 ? 'Mess 1 (Veg)' : 'Mess 2 (Non-Veg)';
+      messDisplay = `${messChoice}`;
+    } else if (latestRecord && latestRecord.messType) {
+      // If no mess number but we have latest record, show the mess type clearly
+      const messType = latestRecord.messType.toLowerCase();
+      if (messType === 'nonveg' || messType === 'non-veg') {
+        messDisplay = 'Non-Veg';
+      } else if (messType === 'veg') {
+        messDisplay = 'Veg';
+      } else {
+        messDisplay = latestRecord.messType.charAt(0).toUpperCase() + latestRecord.messType.slice(1);
+      }
+    }
+    nodes.mess.textContent = messDisplay;
 
     // Render monthly attendance table
     // Note: Monthly rebate column shows '—' because rebate is calculated at semester level
     nodes.tableBody.innerHTML = student.records
       .map(
-        (record) => `
+        (record) => {
+          const parsed = parseMonthKey(record.monthKey);
+          const rate = parsed ? getRatePerDay(record.messType, parsed.year, parsed.monthIndex) : 0;
+          
+          // Format mess type with mess number if available
+          let messTypeDisplay = '—';
+          if (record.messNumber) {
+            // Show mess choice prominently: Mess 1 = Veg, Mess 2 = Non-Veg
+            const messChoice = record.messNumber === 1 ? 'Mess 1 (Veg)' : 'Mess 2 (Non-Veg)';
+            messTypeDisplay = messChoice;
+          } else if (record.messType) {
+            // Fallback to mess type if no mess number - make it clear
+            const messType = record.messType.toLowerCase();
+            if (messType === 'nonveg' || messType === 'non-veg') {
+              messTypeDisplay = 'Non-Veg';
+            } else if (messType === 'veg') {
+              messTypeDisplay = 'Veg';
+            } else {
+              messTypeDisplay = record.messType.charAt(0).toUpperCase() + record.messType.slice(1);
+            }
+          }
+          
+          return `
         <tr>
           <td>${record.monthLabel}</td>
+          <td>${messTypeDisplay}</td>
+          <td>₹${rate}</td>
           <td>${record.presentDays}</td>
           <td>${record.absentDays}</td>
           <td>—</td>
-        </tr>`
+        </tr>`;
+        }
       )
       .join('');
 
@@ -380,31 +463,35 @@
         continue;
       }
 
-      // Calculate total present days for this semester
+      // Calculate total present days and used amount for this semester
+      // Used amount must be calculated using the correct rate per day for each month
       let semPresentDays = 0;
+      let semUsedAmount = 0;
       for (const rec of student.records) {
         const parsed = parseMonthKey(rec.monthKey);
         if (!parsed) continue;
         if (monthWithinSem(parsed.year, parsed.monthIndex, sem)) {
-          semPresentDays += Number(rec.presentDays) || 0;
+          const days = Number(rec.presentDays) || 0;
+          semPresentDays += days;
+          // Calculate used amount using the correct rate for this month and mess type
+          const monthRate = getRatePerDay(rec.messType, parsed.year, parsed.monthIndex);
+          semUsedAmount += days * monthRate;
         }
       }
 
-      // Calculate used amount and rebate
-      // Used amount = present days × rate per day
+      // Calculate rebate
       // Rebate = amount paid - used amount (minimum 0)
-      const usedAmount = semPresentDays * rate;
-      const rebate = Math.max(0, semConfiguredPaidAmount - usedAmount);
+      const rebate = Math.max(0, semConfiguredPaidAmount - semUsedAmount);
 
-      summaries.push({
-        key: sem.key,
-        name: sem.name,
-        paid: semConfiguredPaidAmount,
-        isPaid: true,
-        presentDays: semPresentDays,
-        usedAmount,
-        rebate,
-      });
+        summaries.push({
+          key: sem.key,
+          name: sem.name,
+          paid: semConfiguredPaidAmount,
+          isPaid: true,
+          presentDays: semPresentDays,
+          usedAmount: semUsedAmount,
+          rebate,
+        });
     }
     return summaries;
   }

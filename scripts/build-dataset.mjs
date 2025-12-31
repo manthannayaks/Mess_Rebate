@@ -16,8 +16,17 @@ const MENU_DATA_FILE = path.join(DATA_DIR, 'menu-data.js');
 const CALENDAR_DATA_FILE = path.join(DATA_DIR, 'calendar-data.js');
 const CALENDAR_PDF_FILE = path.join(ASSET_DIR, 'academic-calendar.pdf');
 
-const RATE_PER_ABSENT_DAY = 140; // used as per-day rate (also used as per-day usedAmount multiplier)
+const RATE_PER_ABSENT_DAY = 179/189; // used as per-day rate (also used as per-day usedAmount multiplier)
 const EARLIEST_YEAR = 2025;
+
+function getRatePerDay(messType, year, monthIndex) {
+  // From November 2025 onwards, new rates
+  if (year > 2025 || (year === 2025 && monthIndex >= 10)) { // November is 10
+    return messType === 'veg' ? 179 : 189;
+  }
+  // Before, assume 140 for both
+  return 140;
+}
 
 /**
  * SEMESTER CONFIGURATION
@@ -206,17 +215,19 @@ for (const sem of SEMESTERS) {
     continue;
   }
 
-  // Semester is paid → now calculate present days ONLY for this student
+  // Semester is paid → now calculate present days and used amount for this student
   let semPresentDays = 0;
+  let semUsedAmount = 0;
   for (const rec of student.records) {
     const parsed = parseMonthKey(rec.monthKey);
     if (parsed && isMonthWithinSemester(parsed.year, parsed.monthIndex, sem)) {
-      semPresentDays += Number(rec.presentDays) || 0;
+      const days = Number(rec.presentDays) || 0;
+      semPresentDays += days;
+      semUsedAmount += days * getRatePerDay(rec.messType, parsed.year, parsed.monthIndex);
     }
   }
 
-  const usedAmount = semPresentDays * RATE_PER_ABSENT_DAY;
-  const rebate = Math.max(0, semPaidAmount - usedAmount);
+  const rebate = Math.max(0, semPaidAmount - semUsedAmount);
 
   semesterSummaries.push({
     key: sem.key,
@@ -224,7 +235,7 @@ for (const sem of SEMESTERS) {
     paid: semPaidAmount,
     isPaid: true,
     presentDays: semPresentDays,
-    usedAmount,
+    usedAmount: semUsedAmount,
     rebate,
   });
 }
@@ -412,6 +423,15 @@ function normalizeRebateRow(row, monthInfo) {
 
   const contact = formatContact(firstNonEmpty(row.contact_no, row.contact));
 
+  const mess = firstNonEmpty(row.mess, row.mess_type) ?? '';
+  const messLower = mess.toLowerCase();
+  // Check for non-veg first (to avoid matching "Non-Veg" as "veg")
+  const messType = messLower.includes('non') || messLower.includes('nonveg') ? 'nonveg' : 
+                   messLower.includes('veg') ? 'veg' : 'nonveg';
+  // Extract mess number (1 or 2) from mess field (e.g., "Mess 1 [Veg]" or "Mess 2 [Non-Veg]")
+  const messNumberMatch = mess.match(/mess\s*(\d+)/i);
+  const messNumber = messNumberMatch ? parseInt(messNumberMatch[1], 10) : null;
+
   const totalDays = toNumber(
     firstMatchingValue(row, [
       'no_of_days',
@@ -434,8 +454,11 @@ function normalizeRebateRow(row, monthInfo) {
     firstMatchingValue(row, ['rebate_in', 'rebate_days', 'rebate'])
   );
 
-  if (Number.isNaN(rebateDays) && Number.isNaN(utilizedDays)) {
-    return null;
+  // If both rebateDays and utilizedDays are NaN, but we have a mess type, 
+  // still include the record with default values (0 days) so mess type is visible
+  const hasNoDays = Number.isNaN(rebateDays) && Number.isNaN(utilizedDays);
+  if (hasNoDays && !mess) {
+    return null; // Only skip if no mess type either
   }
 
   const absentDays = validNumber(rebateDays)
@@ -456,6 +479,8 @@ function normalizeRebateRow(row, monthInfo) {
     name: titleCase(name),
     hostel: hostel ? hostel.toUpperCase() : '',
     contact,
+    messType,
+    messNumber, // Store mess number (1 or 2) for display
     monthKey: monthInfo.key,
     monthLabel: monthInfo.label,
     presentDays,
@@ -642,6 +667,8 @@ function upsertStudent(store, record) {
     absentDays: record.absentDays,
     totalDays: record.totalDays,
     rebateAmount: record.rebateAmount,
+    messType: record.messType,
+    messNumber: record.messNumber,
   });
 
   store.set(record.rollNo, existing);
