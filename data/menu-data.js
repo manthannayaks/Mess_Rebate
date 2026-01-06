@@ -1,5 +1,5 @@
 window.MESS_MENU_DATA = {
-  "generatedAt": "2025-12-04T04:13:17.843Z",
+  "generatedAt": "2026-01-06T19:40:50.676Z",
   "plans": [
     {
       "id": "nonveg-non-veg-menu-december",
@@ -51,67 +51,67 @@ window.MESS_MENU_DATA = {
       }
     },
     {
-      "id": "nonveg-non-veg-menu-november",
+      "id": "nonveg-non-veg-menu-jan",
       "type": "nonveg",
-      "label": "Non-veg Menu November",
+      "label": "Non-veg Menu Jan",
       "schedule": {
         "Monday": {
-          "breakfast": "Idli & Medu Vada / Fried Idli, Sambhar, Coconut Chutney, Tomato Chutney, Boiled egg (2), Toasted white/whole wheat bread, Butter, Jam, Sugar, Cornflakes-Oats (student can take only one),  Sprouts-boiled chana, Milk(Non-Toned), Tea, Coffee, Bournvita/Horlicks",
-          "lunch": "Aata Roti, Gluten Free Multigrain Roti, Ragi Roti, Plain Rice, Moong Dal, Sick Moong Daal, Raw banana Fry, Veg Manchurian, Curd, Salad(Beetroot+tomato+onion+carrot+lemon+chilli), Pickle, Lizzat Papad, Ghee",
-          "snacks": "Dhokla, Chutney(Mint), Milk(Non-Toned), Tea, Coffee",
-          "dinner": "Aata Roti, Gluten Free Multigrain Roti, Ragi Roti, Plain rice, Veg Khichdi, Dal Tadka(Chana), Sick dal, Gobi Masala Dar, Aloo beans Curry, Curd, Fryums, Salad(Cucumber+tomato+onion+carrot+lemon+chilli), Pickle, Ghee, Stffed Paratha(Mix Veg/Gobhi), Rasmalai"
+          "breakfast": "Poha, Sambar and Jalebi | Boiled egg (2) | Toasted white/whole wheat bread, Butter, Jam, Sugar, Cornflakes-Oats (student can take only one),  Sprouts-boiled chana, Milk(Non-Toned), Tea, Coffee, Bournvita/Horlicks",
+          "lunch": "Moong Dal, Malai Kofta, Cabbage with peas, Seasonal Fruits (2 types) | — | Atta/Multigrain Roti, Curd, Salad(Beetroot+tomato+onion+carrot+lemon+chilli), Pickle, Lizzat Papad,Ghee",
+          "snacks": "Maggie, Ketchup | — | Milk(Non-Toned), Tea, Coffee",
+          "dinner": "Mix Dal, Mutter Masala, Boondi | Egg Butter Masala | Atta/Multigrain Roti, Salad(Beetroot+tomato+onion+carrot+lemon+chilli), Pickle, Fryums,Ghee"
         },
         "Tuesday": {
-          "breakfast": "Aloo Methi stuffed Prath with Lusun Chutney, Curd, Boiled egg (2), Toasted white/whole wheat bread, Butter, Jam, Sugar, Cornflakes-Oats (student can take only one),  Sprouts-boiled chana, Milk(Non-Toned), Tea, Coffee, Bournvita/Horlicks",
-          "lunch": "Aata Roti, Gluten Free Multigrain Roti, Ragi Roti, Plain Rice, Rajma Dal, Sick Rajma daal, Bhendi Peanut fry, Hariyali Kofta, Lassi,  Salad(Cucumber+tomato+onion+carrot+lemon+chilli), Pickle, Lizzat Papad, Ghee",
-          "snacks": "Dahi Papdi, Chutney(Green+Red), Milk(Non-Toned), Tea, Coffee",
-          "dinner": "Aata Roti, Gluten Free Multigrain Roti, Ragi Roti, Plain rice, Ridged Gourd Daal, Sick Dal, Aloo Deep fry, Brinjal mutter curry, Lizzat Papad, Salad(Beetroot+tomato+onion+carrot+lemon+chilli), Pickle, Ghee, Chole Bhatura, Curd,"
+          "breakfast": "Matar Poori and Sabzi | Banana(2) | Toasted white/whole wheat bread, Butter, Jam, Sugar, Cornflakes-Oats (student can take only one),  Sprouts-boiled chana, Milk(Non-Toned), Tea, Coffee, Bournvita/Horlicks",
+          "lunch": "Rajma Dal, Dum Aloo Banarasi, Mix Veg Dry | — | Atta/Multigrain Roti, Curd , Salad(Beetroot+tomato+onion+carrot+lemon+chilli), Pickle, Lizzat Papad,Ghee",
+          "snacks": "Pyaz Kachori, Ketchup | — | Milk(Non-Toned), Tea, Coffee",
+          "dinner": "Khichdi, Dry Aloo Masala, Veg Chatpata | — | Atta/Multigrain Roti, Salad(Beetroot+tomato+onion+carrot+lemon+chilli), Pickle, Fryums,Ghee"
         },
         "Wednesday": {
-          "breakfast": "Poha (Aloo/Sev), Sambhar,  Curd and Jalebi, Boiled egg (2), Toasted white/whole wheat bread, Butter, Jam, Sugar, Cornflakes-Oats (student can take only one),  Sprouts-boiled chana, Milk(Non-Toned), Tea, Coffee, Bournvita/Horlicks",
-          "lunch": "Aata Roti, Gluten Free Multigrain Roti, Ragi Roti, Plain rice, Cucumber Dal, Sick Cucumber Dal, Kadhi pakoda, Achari Aalo / Masala Aalo, Curd, Salad(Beetroot+tomato+onion+carrot+lemon+chilli), Pickle, Fryums, Ghee",
-          "snacks": "Veg Cutlet/Pakoda, Chutney(Green+Red), Milk(Non-Toned), Tea, Coffee",
-          "dinner": "Aata Roti, Gluten Free Multigrain Roti, Ragi Roti, Plain rice, Veg Fried Rice, Urad Dal, Sick Dal, Cabbage pakoda, Egg Korma, Lizzat Papad, Salad(Cucumber+tomato+onion+carrot+lemon+chilli), Pickle, Ghee, Gulab Jamun(2 Pcs)"
+          "breakfast": "Idli, Fried Idli/Medu Vada , Sambhar, Coconut Chutney, Tomato Chutney | Boiled egg (2) | Toasted white/whole wheat bread, Butter, Jam, Sugar, Cornflakes-Oats (student can take only one),  Sprouts-boiled chana, Milk(Non-Toned), Tea, Coffee, Bournvita/Horlicks",
+          "lunch": "Masoor Dal, Kadhi pakoda, Aloo Spring Onion | — | Atta/Multigrain Roti, Lassi, Salad(Beetroot+tomato+onion+carrot+lemon+chilli), Pickle, Lizzat Papad,Ghee",
+          "snacks": "Dahi Vada, Chutney | — | Milk(Non-Toned), Tea, Coffee",
+          "dinner": "Lasooni Dal Tadka, Veg Korma, Carrot Halwa | Chicken Butter Masala | Atta/Multigrain Roti, Salad(Beetroot+tomato+onion+carrot+lemon+chilli), Pickle,Fryums,Ghee"
         },
         "Thursday": {
-          "breakfast": "Hara Matar Poorvi and Sabji, Mint Chutney, Tomato Chutney, Boiled egg (2), Toasted white/whole wheat bread, Butter, Jam, Sugar, Cornflakes-Oats (student can take only one),  Sprouts-boiled chana, Milk(Non-Toned), Tea, Coffee, Bournvita/Horlicks",
-          "lunch": "Aata Roti, Gluten Free Multigrain Roti, Ragi Roti,  Plain Rice, Dal Makhani, Sick Dal, Gobi 65,Dahi Baigan, Lassi, Salad(Cucumber+tomato+onion+carrot+lemon+chilli), Pickle, Lizzat Papad, Ghee",
-          "snacks": "Samosa, Chutney+Sause, Milk(Non-Toned), Tea, Coffee",
-          "dinner": "Aata Roti, Gluten Free Multigrain Roti, Ragi Roti, Plain rice, Palal Dal, Sick Dal, Cauliflower fry, Patodi Masal, Lizzat Papad, Salad(Beetroot+tomato+onion+carrot+lemon+chilli), Pickle, Ghee, Curd,"
+          "breakfast": "Gobi paratha, Curd and Chutni | Banana(2) | Toasted white/whole wheat bread, Butter, Jam, Sugar, Cornflakes-Oats (student can take only one),  Sprouts-boiled chana, Milk(Non-Toned), Tea, Coffee, Bournvita/Horlicks",
+          "lunch": "Channa Dal Fry, Cabbage Poriyal/ Aloo Gobi Dry, Chilly Potato, Seasonal Fruits (2 types) | — | Atta/Multigrain Roti, Curd, Salad(Beetroot+tomato+onion+carrot+lemon+chilli), Pickle, Lizzat Papad,Ghee",
+          "snacks": "Dhokla, Chutney / Sweet Corn Chaat | — | Milk(Non-Toned), Tea, Coffee",
+          "dinner": "Veg Fried Rice, Pindi Chole, Capsicum Masala, Dosa | — | Atta/Multigrain Roti, Salad(Beetroot+tomato+onion+carrot+lemon+chilli), Pickle, Fryums,Ghee"
         },
         "Friday": {
-          "breakfast": "Masala Dosa , Sambhar, Coconut Chutney, Lusun Chutney, Boiled egg (2), Toasted white/whole wheat bread, Butter, Jam, Sugar, Cornflakes-Oats (student can take only one),  Sprouts-boiled chana, Milk(Non-Toned), Tea, Coffee, Bournvita/Horlicks",
-          "lunch": "Aata Roti, Gluten Free Multigrain Roti, Ragi Roti, Plain Rice, Chole Masala, Sick Dal, Mixed Vegetable dry, Bhendi Do Pyaja, Curd, Salad(Beetroot+tomato+onion+carrot+lemon+chilli), Pickle, Lizzat Papad, Ghee",
-          "snacks": "Pav Bhaji, Chutney(Green+Red), Chopped Onion, Milk(Non-Toned), Tea, Coffee",
-          "dinner": "Aata Roti, Gluten Free Multigrain Roti, Ragi Roti, Plain rice, Navratan Pulao, Masoor Dal, Sick Dal, Beetroot Poriyal, Egg Curry, Fryums, Salad(Cucumber+tomato+onion+carrot+lemon+chilli), Pickle, Ghee, Kalakand"
+          "breakfast": "Uttapam, Sambhar, Coconut Chutney | Boiled egg (2) | Toasted white/whole wheat bread, Butter, Jam, Sugar, Cornflakes-Oats (student can take only one),  Sprouts-boiled chana, Milk(Non-Toned), Tea, Coffee, Bournvita/Horlicks",
+          "lunch": "Dal Panchmahal, Cauliflower Fry, Hariyali Kofta | — | Atta/Multigrain Roti, Lassi , Salad(Beetroot+tomato+onion+carrot+lemon+chilli), Pickle, Lizzat Papad,Ghee",
+          "snacks": "Samosa, Chutney | — | Milk(Non-Toned), Tea, Coffee",
+          "dinner": "Moong Dal,Veg Biriyani, Alu Soyabin Dry,  Milk Barfi/Coconut Barfi | Egg curry | Atta/Multigrain Roti, Salad(Beetroot+tomato+onion+carrot+lemon+chilli), Pickle,Fryums,Ghee"
         },
         "Saturday": {
-          "breakfast": "Aloo Pyaz Paratha/Mix Veg paratha, Curd, Tomato Chutney, Pickle, Boiled egg (2), Toasted white/whole wheat bread, Butter, Jam, Sugar, Cornflakes-Oats (student can take only one),  Sprouts-boiled chana, Milk(Non-Toned), Tea, Coffee, Bournvita/Horlicks",
-          "lunch": "Aata Roti, Gluten Free Multigrain Roti, Ragi Roti,  Plain Rice, Dal Tadka(Masoor), Sick Dal, Brinjal & Capsicum Fry, Corn Palak Masala, Curd, Salad(Cucumber+tomato+onion+carrot+lemon+chilli), Pickle, Fryums, Ghee",
-          "snacks": "Corn Chaat, Sause, Milk(Non-Toned), Tea, Coffee",
-          "dinner": "Aata Roti, Gluten Free Multigrain Roti, Ragi Roti, Plain rice, Daal Dhoiki, Sick Dal, Soyabeen Fry, Gutti vankaya, Lizzat Papad, Salad(Beetroot+tomato+onion+carrot+lemon+chilli), Pickle, Ghee, Dosa, Chutney(Mint+Coconut)"
+          "breakfast": "Aloo Pyaz Paratha, Curd, Mint Chutney, Pickle | Boiled egg (2) | Toasted white/whole wheat bread, Butter, Jam, Sugar, Cornflakes-Oats (student can take only one),  Sprouts-boiled chana, Milk(Non-Toned), Tea, Coffee, Bournvita/Horlicks",
+          "lunch": "Dal Tadka, Cabbage Pakoda, Veg Korma | — | Atta/Multigrain Roti, Curd, Salad(Beetroot+tomato+onion+carrot+lemon+chilli), Pickle, Lizzat Papad,Ghee",
+          "snacks": "Pav Bhaji/ Vada Pav, Chutney | — | Milk(Non-Toned), Tea, Coffee",
+          "dinner": "Plain rice, Urad Dal, Chole Bhature, Aloo Palak | Atta/Multigrain Roti, Salad(Beetroot+tomato+onion+carrot+lemon+chilli), Pickle,Fryums, Ghee"
         },
         "Sunday": {
-          "breakfast": "Uttapam, Sambhar, Coconut chutney, Lusun Chutney, Boiled egg (2), Toasted white/whole wheat bread, Butter, Jam, Sugar, Cornflakes-Oats (student can take only one),  Sprouts-boiled chana, Milk(Non-Toned), Tea, Coffee, Bournvita/Horlicks",
-          "lunch": "Aata Roti, Gluten Free Multigrain Roti, Ragi Roti, Plain Rice, Channa dal fry, Sick Dal, Cabbage carrot Fry, Tomato Drumstick Curry, Curd, Salad(Beetroot+tomato+onion+carrot+lemon+chilli), Pickle, Fryums, Ghee",
-          "snacks": "Pani Puri with mashed masala aloo and chana, Chutney(Green+Red), Chopped Onion, Milk(Non-Toned), Tea, Coffee",
-          "dinner": "Aata Roti, Gluten Free Multigrain Roti, Ragi Roti, Plain rice, Lasooni Daal Tadka, Sick dal, Cluster beans fry, Chicken Biryani(Basmati), Lizzat Papad, Salad(Beetroot+tomato+onion+carrot+lemon+chilli), Pickle, Ghee, Carrot Halwa"
+          "breakfast": "Masala Dosa, Sambhar, Coconut Chutney | Boiled egg (2) | Toasted white/whole wheat bread, Butter, Jam, Sugar, Cornflakes-Oats (student can take only one),  Sprouts-boiled chana, Milk(Non-Toned), Tea, Coffee, Bournvita/Horlicks",
+          "lunch": "Dal Makhani, Veg Manchurian, Aloo Deep Fry | — | Atta/Multigrain Roti, Lassi, Salad(Beetroot+tomato+onion+carrot+lemon+chilli), Pickle, Lizzat Papad, Ghee",
+          "snacks": "Veg Cutlet, Ketchup | — | Milk(Non-Toned), Tea, Coffee",
+          "dinner": "Dal Tadka, Aloo Mutter Curry, Gulab Jamun,Raita | Chicken Biryani | Atta/Multigrain Roti, Salad(Beetroot+tomato+onion+carrot+lemon+chilli), Pickle, Fryums, Ghee"
         }
       }
     },
     {
-      "id": "veg-veg-menu-december",
+      "id": "veg-veg-menu-jan",
       "type": "veg",
-      "label": "Veg Menu December",
+      "label": "Veg Menu Jan",
       "schedule": {
         "Monday": {
           "breakfast": {
-            "veg": "Poha (Aloo/Sev), Mint Chutney, Jalebi, Banana(2), Toasted white/whole wheat bread, Butter, Jam, Sugar, Cornflakes/Oats (student can take only one),  Sprouts-boiled chana, Milk(Non-Toned), Tea, Coffee, Bournvita/Horlicks/Boost",
+            "veg": "Idli / Fried Idli, Sambhar, Coconut Chutney, Tomato Chutney, Banana(2), Toasted white/whole wheat bread, Butter, Jam, Sugar, Cornflakes,  Sprouts-boiled chana, Milk(Non-Toned), Tea, Coffee,\nBournvita/ Boost",
             "jain": "",
             "compulsory": ""
           },
           "lunch": {
-            "veg": "Aata Roti/Multigrain Roti, Plain Rice, Moong Dal, Sick Moong Daal, Soya bean dry, Veg Manchurian, Curd, Salad(Beetroot+tomato+onion+carrot+lemon+chilli), Pickle, Fryums, Ghee",
+            "veg": "Aata Roti/Multigrain Roti, Plain Rice, Moong Masoor Dal, Sick Moong Daal, Mix Veg (carrot matar cabbage ), Malai kofta , Curd, Salad(Beetroot+tomato+onion+carrot+lemon+chilli), Pickle, Ghee, Lizzat papad",
             "jain": "",
             "compulsory": ""
           },
@@ -121,64 +121,64 @@ window.MESS_MENU_DATA = {
             "compulsory": ""
           },
           "dinner": {
-            "veg": "Aata Roti/Multigrain Roti, Plain rice, Veg Khichdi, Dal Tadka(Chana), Sick dal, Gobi Masala, Aloo beans Curry, Fryums, Salad(Cucumber+tomato+onion+carrot+lemon+chilli), Pickle, Ghee , Sheera",
+            "veg": "Aata Roti/Multigrain Roti, Plain rice, Veg Khichdi, Dal Tadka(Chana), Sick dal, Aalo Beans curry , Mix Veg , Fryums, Salad(Cucumber+tomato+onion+carrot+lemon+chilli), Pickle, Ghee, Stuffed Paratha(Mix Veg/Gobhi), Milk Barfi",
             "jain": "Beans curry",
             "compulsory": ""
           }
         },
         "Tuesday": {
           "breakfast": {
-            "veg": "Aloo Methi stuffed Pratha with green chutney, Curd, Banana(2), Toasted white/whole wheat bread, Butter, Jam, Sugar, Cornflakes/Oats (student can take only one),  Sprouts-boiled chana, Milk(Non-Toned), Tea, Coffee, Bournvita/Horlicks/Boost",
+            "veg": "Methi stuffed Pratha / Gobhi Paratha , Chutney, Curd, Banana(2), Toasted white/whole wheat bread, Butter, Jam, Sugar, Cornflakes,  Sprouts-boiled chana, Milk(Non-Toned), Tea, Coffee, Bournvita / Boost",
             "jain": "",
             "compulsory": ""
           },
           "lunch": {
-            "veg": "Aata Roti/Multigrain Roti, Plain Rice, Rajma Dal, Sick Rajma daal, kaddu dry, Hariyali Kofta, Lassi,  Salad(Cucumber+tomato+onion+carrot+lemon+chilli), Pickle, Fryums, Ghee, Curd, Seasonal Fruits",
+            "veg": "Aata Roti/Multigrain Roti, Plain Rice, Rajma Dal, Sick Rajma , Kaddu fry, Hariyali kofta ,  Salad(Cucumber+tomato+onion+carrot+lemon+chilli), Pickle, Ghee, Fryums",
             "jain": "",
             "compulsory": ""
           },
           "snacks": {
-            "veg": "Dahi Papdi, Chutney(Green+Red), Milk(Non-Toned), Tea, Coffee",
+            "veg": "Veg Cheese Sandwich/ Aalo grilled Sandwich, Chutney(Green+Red), Milk(Non-Toned), Tea, Coffee",
             "jain": "",
             "compulsory": ""
           },
           "dinner": {
-            "veg": "Aata Roti/Multigrain Roti, Plain rice, Ridged Gourd Daal, Sick Dal, Aloo Deep fry, Fryums, Salad(Beetroot+tomato+onion+carrot+lemon+chilli), Pickle, Ghee, Chole Bhature",
+            "veg": "Aata Roti/Multigrain Roti, Ragi Roti, Plain rice, Ridged Gourd Daal, Sick Dal, Chole Bhatura, Aloo Deep fry, Salad(Beetroot+tomato+onion+carrot+lemon+chilli), Pickle, Ghee, Lizzat papad",
             "jain": "Matar Paneer",
             "compulsory": ""
           }
         },
         "Wednesday": {
           "breakfast": {
-            "veg": "Idli / Fried Idli, Sambhar, Coconut Chutney, Tomato Chutney, Banana(2), Toasted white/whole wheat bread, Butter, Jam, Sugar, Cornflakes/Oats (student can take only one),  Sprouts-boiled chana, Milk(Non-Toned), Tea, Coffee, Bournvita/Horlicks/Boost",
+            "veg": "Indori Poha (Aloo/Sev), Mint chutney Jalebi, Banana(2), Toasted white/whole wheat bread, Butter, Jam, Sugar,\nCornflakes,  Sprouts-boiled chana, Milk(Non-Toned), Tea, Coffee, Bournvita / Boost",
             "jain": "",
             "compulsory": ""
           },
           "lunch": {
-            "veg": "Aata Roti/Multigrain Roti,  Plain rice, Cucumber Dal, Sick Cucumber Dal, Kadhi pakoda, Achari Aalo / Masala Aalo, Curd, Salad(Beetroot+tomato+onion+carrot+lemon+chilli), Pickle, Fryums, Ghee",
-            "jain": "Chana masala dry",
+            "veg": "Aata Roti/Multigrain Roti,  Plain rice, Cucumber Dal, Sick Cucumber Dal, Kadhi pakoda, Achari Aalo / Masala Aalo, Masala chaach, Salad(Beetroot+tomato+onion+carrot+lemon+chilli), Pickle, Ghee, Fryums",
+            "jain": "Chana Masala dry",
             "compulsory": ""
           },
           "snacks": {
-            "veg": "Veg Cutlet/Pakoda, Chutney(Green+Red), Milk(Non-Toned), Tea, Coffee",
+            "veg": "Veg Cutlet/ Bread Pakoda, Chutney(Green+Red), Milk(Non-Toned), Tea, Coffee",
             "jain": "",
             "compulsory": ""
           },
           "dinner": {
-            "veg": "Aata Roti/Multigrain Roti,  Plain rice, Veg Fried Rice, Urad Dal, Sick Dal, Cabbage pakoda, Matar Paneer, Fryums, Salad(Cucumber+tomato+onion+carrot+lemon+chilli), Pickle, Ghee, Gulab Jamun(2 Pcs)",
-            "jain": "Gatte ki sazi",
+            "veg": "Aata Roti/Multigrain Roti,  Plain rice, Veg Fried Rice, Urad Dal, Sick Dal, Veg Korma , Shahi Paneer, Lizzat Papad, Salad(Cucumber+tomato+onion+carrot+lemon+chilli), Pickle, Ghee,Gulab Jamun (2 pieces)",
+            "jain": "Gatte ki sabzi",
             "compulsory": ""
           }
         },
         "Thursday": {
           "breakfast": {
-            "veg": "Hara Matar Poorvi and Sabji, Mint Chutney, Tomato Chutney, Banana(2), Toasted white/whole wheat bread, Butter, Jam, Sugar, Cornflakes/Oats (student can take only one),  Sprouts-boiled chana, Milk(Non-Toned), Tea, Coffee, Bournvita/Horlicks/Boost",
+            "veg": "Masala Dosa , Sambhar, Coconut Chutney, Lusun Chutney, Banana(2), Toasted white/whole wheat bread, Butter, Jam, Sugar, Cornflakes-Oats (student can take only one),  Sprouts-boiled chana, Milk(Non-Toned), Tea, Coffee,\nBournvita / Boost",
             "jain": "",
             "compulsory": ""
           },
           "lunch": {
-            "veg": "Aata Roti/Multigrain Roti, Plain Rice, Dal Makhani, Sick Dal, Aalo Gobi matar dry , Dahi Baigan, Lassi, Salad(Cucumber+tomato+onion+carrot+lemon+chilli), Pickle, Fryums, Ghee,  Seasonal Fruits",
-            "jain": "Gobhi matar",
+            "veg": "Aata Roti/Multigrain Roti,   Plain Rice, Dal Makhani, Sick Dal, Veg Jalfrezi , Dahi Baigan, Seasonal Fruits, Salad(Cucumber+tomato+onion+carrot+lemon+chilli), Pickle, Ghee, Fryums",
+            "jain": "Gobhi masala",
             "compulsory": ""
           },
           "snacks": {
@@ -187,19 +187,14 @@ window.MESS_MENU_DATA = {
             "compulsory": ""
           },
           "dinner": {
-            "veg": "Aata Roti/Multigrain Roti,  Plain rice,  Dal tadka, Sick Dal, Cauliflower fry, Alu- Baigan, Fryums, Salad(Beetroot+tomato+onion+carrot+lemon+chilli), Pickle, Ghee.",
+            "veg": "Aata Roti/Multigrain Roti,  Plain rice, Palal Dal, Sick Dal, Cauliflower fry, Aalo nutri gravy, Salad(Beetroot+tomato+onion+carrot+lemon+chilli), Pickle, Ghee, Curd, Lizzat papad",
             "jain": "",
             "compulsory": ""
           }
         },
         "Friday": {
-          "breakfast": {
-            "veg": "Uttapam, Sambhar, Coconut chutney, Lusun Chutney, Banana(2), Toasted white/whole wheat bread, Butter, Jam, Sugar, Cornflakes/Oats (student can take only one),  Sprouts-boiled chana, Milk(Non-Toned), Tea, Coffee, Bournvita/Horlicks/Boost",
-            "jain": "",
-            "compulsory": ""
-          },
           "lunch": {
-            "veg": "Aata Roti/Multigrain Roti,  Plain Rice,Mix dal, Chole Masala, Sick Dal, Mixed Vegetable dry, Curd, Salad(Beetroot+tomato+onion+carrot+lemon+chilli), Pickle, Fryums, Ghee",
+            "veg": "Aata Roti/Multigrain Roti,  Plain Rice, Moong dal, Sick Dal, Cabbage with peas ,Punjabi chole  , Curd, Salad(Beetroot+tomato+onion+carrot+lemon+chilli), Pickle, Ghee, Lizzat papad",
             "jain": "",
             "compulsory": ""
           },
@@ -209,214 +204,53 @@ window.MESS_MENU_DATA = {
             "compulsory": ""
           },
           "dinner": {
-            "veg": "Aata Roti/Multigrain Roti,  Plain rice, Navratan Pulao, Masoor Dal, Sick Dal, Kaccha kela dry, Paneer Curry, Fryums, Salad(Cucumber+tomato+onion+carrot+lemon+chilli), Pickle, Ghee, Mawa kheer",
-            "jain": "",
+            "veg": "Aata Roti/Multigrain Roti,  Plain rice, Navratan Pulao, Masoor Dal, Sick Dal, Aalo brinjal fry, Palak Paneer , Fryums, Salad(Cucumber+tomato+onion+carrot+lemon+chilli), Pickle, Ghee, Mawa Kheer",
+            "jain": "Papad ki sabzi",
             "compulsory": ""
           }
         },
         "Saturday": {
           "breakfast": {
-            "veg": "Aloo Pyaz Paratha/Mix Veg paratha, Curd, Tomato Chutney, Pickle, Banana(2), Toasted white/whole wheat bread, Butter, Jam, Sugar, Cornflakes/Oats (student can take only one),  Sprouts-boiled chana, Milk(Non-Toned), Tea, Coffee, Bournvita/Horlicks/Boost",
+            "veg": "Aloo Pyaz Paratha/Mix Veg paratha, Curd, Tomato Chutney, Pickle, Banana(2), Toasted white/whole wheat bread, Butter, Jam, Sugar, Cornflakes,  Sprouts-boiled chana, Milk(Non-Toned), Tea, Coffee,\nBournvita / Boost",
             "jain": "",
             "compulsory": ""
           },
           "lunch": {
-            "veg": "Aata Roti/Multigrain Roti, Plain Rice, Dal (Masoor), Sick Dal, Jira+ green dhaniya aloo, lauki chana grevi,Vegitable Mix khichdi, Curd, Salad(Cucumber+tomato+onion+carrot+lemon+chilli), Pickle, Fryums, Ghee",
-            "jain": "",
+            "veg": "Aata Roti/Multigrain Roti,   Plain Rice, Dal Tadka(Masoor), Sick Dal,  Mix Veg,  Matar chole,Veg khichdi ,Curd, Salad(Cucumber+tomato+onion+carrot+lemon+chilli), Pickle, Ghee, Lizzat Papad",
+            "jain": "Methi matar malai",
             "compulsory": ""
           },
           "snacks": {
-            "veg": "pasta / macroni , ketchup, Milk(Non-Toned), Tea, Coffee",
+            "veg": "Noodles/ Macroni, Sause, Milk(Non-Toned), Tea, Coffee",
             "jain": "",
             "compulsory": ""
           },
           "dinner": {
-            "veg": "Aata Roti/Multigrain Roti,  Plain rice, Daal Tadka, Sick Dal, Soyabeen Fry, Mix veg., Lizzat Papad, Salad(Beetroot+tomato+onion+carrot+lemon+chilli), Pickle, Ghee, Chutney(Mint+Coconut)",
-            "jain": "papad sabzi",
+            "veg": "Aata Roti/Multigrain Roti,  Plain rice, Daal Dhoiki, Sick Dal, Aalo palak (gravy), Bhindi peanut fry, Salad(Beetroot+tomato+onion+carrot+lemon+chilli), Pickle, Ghee, Chutney(Mint+Coconut), Fryums",
+            "jain": "",
             "compulsory": ""
           }
         },
         "Sunday": {
           "breakfast": {
-            "veg": "Masala Dosa , Sambhar, Coconut Chutney, Lusun Chutney, Banana(2), Toasted white/whole wheat bread, Butter, Jam, Sugar, Cornflakes/Oats (student can take only one),  Sprouts-boiled chana, Milk(Non-Toned), Tea, Coffee, Bournvita/Horlicks/Boost",
+            "veg": "Uttapam, Sambhar, Coconut chutney, Banana(2), Toasted white/whole wheat bread, Butter, Jam, Sugar, Cornflakes,  Sprouts-boiled chana, Milk(Non-Toned), Tea, Coffee, Bournvita/ Boost",
             "jain": "",
             "compulsory": ""
           },
           "lunch": {
-            "veg": "Aata Roti/Multigrain Roti,  Plain Rice, Channa dal fry, Sick Dal, Cabbage matar Fry, White matar chhola, Curd, Salad(Beetroot+tomato+onion+carrot+lemon+chilli), Pickle, Fryums, Ghee",
+            "veg": "Aata Roti/Multigrain Roti,  Plain Rice, Channa dal fry, Sick Dal, Cabbage pokoda ,moong masala  , Curd, Salad(Beetroot+tomato+onion+carrot+lemon+chilli), Pickle,Ghee, Seasonal fruits, Fryums",
             "jain": "",
             "compulsory": ""
           },
           "snacks": {
-            "veg": "Pani Puri with mashed masala aloo and chana, Chutney(Green+Red), Chopped Onion, Milk(Non-Toned), Tea, Coffee",
+            "veg": "Dahi Vada , Chutney, Milk(Non-Toned), Tea, Coffee",
             "jain": "",
             "compulsory": ""
           },
           "dinner": {
-            "veg": "Aata Roti/Multigrain Roti,  Plain rice, Lasooni Daal Tadka, Sick dal, Cluster beans fry, Paneer Biryani, Lizzat Papad, Salad(Beetroot+tomato+onion+carrot+lemon+chilli), Pickle, Ghee, Gazar ka halwa",
-            "jain": "kaccha kela",
+            "veg": "Aata Roti/Multigrain Roti,  Plain rice, Veg Biryani, Lasooni Daal Tadka, Sick dal, Kaccha kela, Matar  Paneer , Lizzat Papad, Salad(Beetroot+tomato+onion+carrot+lemon+chilli), Pickle, Ghee, Carrot Halwa",
+            "jain": "Kaccha kela",
             "compulsory": ""
-          }
-        }
-      }
-    },
-    {
-      "id": "veg-veg-menu-november-xlsx",
-      "type": "veg",
-      "label": "Veg Menu November.xlsx",
-      "schedule": {
-        "Monday": {
-          "breakfast": {
-            "veg": "Poha (Aloo/Sev), Sambhar/ mint chutney,  Dahi and Jalebi",
-            "jain": "Banana (2)",
-            "compulsory": "Banana (2)"
-          },
-          "lunch": {
-            "veg": "Navaratan Pulao, Moong Dal, Malai Kofta/Veg Kofta, Lauki Chana, Plain Curd, Seasonal Fruits 2 types)",
-            "jain": "—",
-            "compulsory": "Veg Kofta"
-          },
-          "snacks": {
-            "veg": "Veg Cutlet/Bread Pakora, Ketchup, mint chutney",
-            "jain": "—",
-            "compulsory": "—"
-          },
-          "dinner": {
-            "veg": "Veg Rice, Mix Dal, Beetroot Poriyal / Beans Poriyal , Boondi Raita, Kalakand / Moong dal halwa",
-            "jain": "Paneer 65/ Paneer Tikka Masala",
-            "compulsory": "—"
-          }
-        },
-        "Tuesday": {
-          "breakfast": {
-            "veg": "Khasta Puri with Aloo Chana Sabji",
-            "jain": "Banana (2)",
-            "compulsory": "Banana (2)"
-          },
-          "lunch": {
-            "veg": "Veg Tehri Pulao, Rajma Dal, Kaddu dry, Nutri Matar, Curd",
-            "jain": "—",
-            "compulsory": "Tar Kakri"
-          },
-          "snacks": {
-            "veg": "(Cheese Corn Sandwich, ketchup)/ (Dahi Vada, Chutney, Chaat masala)",
-            "jain": "—",
-            "compulsory": ""
-          },
-          "dinner": {
-            "veg": "Plain Rice, Lasooni Dal Tadka, Amritsari Chole, Veg jalfrezi, Stuffed Naan, Tomato soup / Gulab Jamun",
-            "jain": "",
-            "compulsory": "—"
-          }
-        },
-        "Wednesday": {
-          "breakfast": {
-            "veg": "Idli & Medu Vada / Fried Idli, Sambhar, Coconut Chutney, Tomato Chutney",
-            "jain": "Banana (2)",
-            "compulsory": "Banana (2)"
-          },
-          "lunch": {
-            "veg": "Plain rice, Masoor Dal, Kadhi pakoda, Achari Aalo / Masala Aalo, Plain Curd, Seasonal Fruits (2 types)",
-            "jain": "—",
-            "compulsory": "—"
-          },
-          "snacks": {
-            "veg": "Hakka Noodles/Macroni , ketchup",
-            "jain": "—",
-            "compulsory": "—"
-          },
-          "dinner": {
-            "veg": "Mix Dal, Boondi Raita, Rasgulla",
-            "jain": "Hyderabadi Biryani, Soya Chaap",
-            "compulsory": "Soya Bean Matar"
-          }
-        },
-        "Thursday": {
-          "breakfast": {
-            "veg": "Dal Pakwan",
-            "jain": "Banana (2)",
-            "compulsory": "Banana (2)"
-          },
-          "lunch": {
-            "veg": "Veg Pulao, Dal Fry, Fry Kala Chana (Semi-gravy), Chilly Potato, Plain Curd, Roti",
-            "jain": "—",
-            "compulsory": "—"
-          },
-          "snacks": {
-            "veg": "Dhokla, Chutney / Sweet Corn",
-            "jain": "—",
-            "compulsory": "—"
-          },
-          "dinner": {
-            "veg": "Special Menu*( once a month) / Vegetable Khichdi , Plain rice, Rajma dal  , Veg Korma, Milk Burfi",
-            "jain": "—",
-            "compulsory": "Lauki Tamatar"
-          }
-        },
-        "Friday": {
-          "breakfast": {
-            "veg": "Masala Dosa , Sambhar, Coconut Chutney",
-            "jain": "Banana (2)",
-            "compulsory": "Banana (2)"
-          },
-          "lunch": {
-            "veg": "Schezwan Fried rice, Panchrani Dal, Gobi 65, Veg Manchurian, Fruit custard",
-            "jain": "—",
-            "compulsory": "Shimla Tamatar"
-          },
-          "snacks": {
-            "veg": "Samosa / Onion Kachori (Red/Green) Chutney",
-            "jain": "—",
-            "compulsory": "—"
-          },
-          "dinner": {
-            "veg": "Plain rice, Arhar Moong Dal, Baingan Bharta, Veg Soup, Coconut Barfi / Shahi Tudka",
-            "jain": "Kadhai Paneer  / Paneer Butter Masala",
-            "compulsory": "Kaddu ki sabji"
-          }
-        },
-        "Saturday": {
-          "breakfast": {
-            "veg": "Aloo Pyaz Paratha/Mix Veg paratha, Curd, Tomato Chutney, Pickle",
-            "jain": "Banana (2)",
-            "compulsory": "Banana (2)"
-          },
-          "lunch": {
-            "veg": "Veg Fried Rice, Dal Tadka, Mix Veg, Stir Fried Vegetables in Hot Garlic Sauce, Masala Chaas/Pudina Chaas",
-            "jain": "—",
-            "compulsory": "—"
-          },
-          "snacks": {
-            "veg": "Pav Bhaji / Vada Pav, Chopped Onion, Green chutney, Red Chutney",
-            "jain": "—",
-            "compulsory": "—"
-          },
-          "dinner": {
-            "veg": "Plain rice, Urad Dal, Chole Bhature, Aloo Masala/ Betroot Poriyal, Ice Cream (chocolate/vanilla/butterscoth/strawberry)",
-            "jain": "",
-            "compulsory": "—"
-          }
-        },
-        "Sunday": {
-          "breakfast": {
-            "veg": "Uttapam, Sambhar, Coconut chutney",
-            "jain": "Banana (2)",
-            "compulsory": "Banana (2)"
-          },
-          "lunch": {
-            "veg": "Barista Rice, Amritsari Dal, Navratna Korma, Aloo Parwal fry/ Crispy Potato, Lassi, Roti",
-            "jain": "—",
-            "compulsory": "Torai"
-          },
-          "snacks": {
-            "veg": "Pani Puri with mashed masala aloo and chana",
-            "jain": "—",
-            "compulsory": "—"
-          },
-          "dinner": {
-            "veg": "Tandoori Roti, Jeera rice, Moong-Masoor dal, Methi Matar Malai/ Kaccha Kela, Rasmalai",
-            "jain": "Matar Paneer / Shahi Paneer",
-            "compulsory": "—"
           }
         }
       }
